@@ -1,14 +1,32 @@
 package fr.sboivin.springdemo.controllers;
 
+import fr.sboivin.springdemo.entities.Patient;
+import fr.sboivin.springdemo.entities.Ville;
+import fr.sboivin.springdemo.repositories.PatientRepository;
+import fr.sboivin.springdemo.repositories.VilleRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 
 @Controller
 @RequestMapping("/patients")
 public class PatientController {
+
+    private final PatientRepository pr;
+    private final VilleRepository vr;
+
+    public PatientController(PatientRepository pr, VilleRepository vr) {
+        this.pr = pr;
+        this.vr = vr;
+    }
+
 
     @RequestMapping(value = "/")
     public String hello(Model model) {
@@ -16,36 +34,54 @@ public class PatientController {
         return "hello";
     }
 
-    @RequestMapping(value = "/add")
-    public String addPatient(Model model) {
+    @GetMapping(value = "/add")
+    public String addPatientGet(Model model) {
         model.addAttribute("entete_titre", "Ajouter patient");
         model.addAttribute("placeholder_nom", "Nom*");
         model.addAttribute("placeholder_prenom", "Prénom*");
         model.addAttribute("placeholder_mail", "Email*");
         model.addAttribute("placeholder_telephone", "Téléphone*");
-        model.addAttribute("button_submit_text","Ajouter patient");
+        List<Ville> lv = (List<Ville>) vr.findAll();
+        model.addAttribute("liste_villes", lv);
+        model.addAttribute("button_submit_text", "Ajouter patient");
         return "patients/add_edit";
     }
 
-    @RequestMapping(value = "/edit/{id}")
-    public String editPatient(Model model, @PathVariable long id) {
-        return "patients/add_edit";
+    @PostMapping(value = "/add")
+    public String addPatientPost(HttpServletRequest request) {
+        try {
+            Patient p = new Patient();
+            p.setNom(request.getParameter("nom"));
+            p.setPrenom(request.getParameter("prenom"));
+            p.setEmail(request.getParameter("email"));
+            p.setTelephone(request.getParameter("telephone"));
+            p.setVille(Integer.valueOf(request.getParameter("ville")));
+            pr.save(p);
+        } catch (Exception e) {
+
+        }
+        return "redirect:/patients/list";
     }
+
 
     @RequestMapping(value = "/list")
     public String listAll(Model model) {
         return "patients/list";
     }
 
-    @RequestMapping(value = "/{id}")
-    public String viewPatient(Model model, @PathVariable int id) {
+    @RequestMapping(value = "/edit/{id}")
+    public String editPatient(Model model, @PathVariable int id) {
+        try {
+            Patient p = pr.findById(id).orElse(null);
+            model.addAttribute("entete_titre", "Patient ID " + String.valueOf(id));
+            model.addAttribute("value_nom", p.getNom());
+            model.addAttribute("value_prenom", p.getPrenom());
+            model.addAttribute("value_mail", p.getEmail());
+            model.addAttribute("value_telephone", p.getTelephone());
+            model.addAttribute("button_submit_text", "Mettre à jour");
+        } catch (Exception e) {
 
-        model.addAttribute("entete_titre", "Patient ID " + Integer.toString(id));
-        model.addAttribute("value_nom", "Dalton");
-        model.addAttribute("value_prenom", "Avrel*");
-        model.addAttribute("value_mail", "avrel@gg.io");
-        model.addAttribute("value_telephone", "0145247000");
-        model.addAttribute("button_submit_text","Mettre à jour");
+        }
         return "patients/add_edit";
     }
 
