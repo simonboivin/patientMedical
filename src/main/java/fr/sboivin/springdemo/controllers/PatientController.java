@@ -23,6 +23,7 @@ public class PatientController {
         model.addAttribute("placeholder_prenom", "Prénom*");
         model.addAttribute("placeholder_mail", "Email*");
         model.addAttribute("placeholder_telephone", "Téléphone*");
+        model.addAttribute("button_submit_text","Ajouter patient");
         return "patients/add_edit";
     }
 
@@ -44,6 +45,7 @@ public class PatientController {
         model.addAttribute("value_prenom", "Avrel*");
         model.addAttribute("value_mail", "avrel@gg.io");
         model.addAttribute("value_telephone", "0145247000");
+        model.addAttribute("button_submit_text","Mettre à jour");
         return "patients/add_edit";
     }
 
