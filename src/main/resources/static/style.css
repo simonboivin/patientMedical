@@ -1,0 +1,114 @@
+html, body, main {
+    height: 99%;
+}
+
+body {
+    background-image: url(/back.jpg);
+    background-size: 100%;
+}
+
+main {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#formulaire, #login {
+    display: flex;
+    width: 700px;
+    flex-direction: column;
+    justify-content: center;
+    border: solid 1px gray;
+    border-radius: 1px;
+    background-color: white;
+}
+
+.entete_formulaire {
+    background-color: lightblue;
+    padding: 15px;
+    font-weight: bold;
+    border-bottom: solid 1px gray;
+}
+
+#formulaire form {
+    display: flex;
+    padding: 15px;
+    flex-direction: column;
+}
+
+.personne {
+    color: gray;
+    font-weight: bold;
+}
+
+.form_block {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    padding-bottom: 10px;
+}
+
+.form_block input, .form_block select {
+    margin-right: 20px;
+    margin-bottom: 20px;
+    height: 30px;
+    padding: 0 10px 0 10px;
+    color: rgb(22, 22, 22);
+    border: solid 1px lightgray;
+}
+
+.form_block input:focus, .form_block select:focus {
+    outline: solid 2px deepskyblue;
+}
+
+.block_details input {
+    margin-bottom: 5px;
+}
+
+.block_details label {
+    font-size: x-small;
+    color: gray;
+    margin-bottom: 20px;
+}
+
+#email {
+    width: 200px;
+}
+
+#adresse {
+    width: 300px;
+}
+
+.icone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid 1px lightgray;
+    width: 30px;
+    height: 30px;
+    background-color: lightblue;
+    border-radius: 3px 0 0 3px;
+    font-size: small;
+}
+
+.icon_champ {
+    display: flex;
+}
+
+#ville {
+    width: 300px;
+}
+
+#login_form {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+    height: 150px;
+}
