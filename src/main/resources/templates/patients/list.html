@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://kit.fontawesome.com/aa7abb9c95.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <main>
+        <div id="liste_patients">
+            <div class="entete_formulaire"> Liste des Patients</div>
+            <table>
+                <th>
+                <td>Nom</td>
+                <td>Prénom</td>
+                <td>Mail</td>
+                <td>Téléphone</td>
+                <td>Ville</td>
+                </th>
+                <tr th:each="patient : ${liste_patient}">
+                    <td th:utext="${patient.id}"></td>
+                    <td th:utext="${patient.nom}"></td>
+                    <td th:utext="${patient.prenom}"></td>
+                    <td th:utext="${patient.email}"></td>
+                    <td th:utext="${patient.telephone}"></td>
+                    <td th:utext="${patient.ville}"></td>
+                </tr>
+            </table>
+        </div>
+    </main>
+</body>
+
+</html>
