@@ -43,7 +43,8 @@ public class PatientController {
         model.addAttribute("placeholder_telephone", "Téléphone*");
         List<Ville> lv = (List<Ville>) vr.findAll();
         model.addAttribute("liste_villes", lv);
-        model.addAttribute("ville_select", 3);
+        Ville villeDefaut = vr.findById(1).orElse(null);
+        model.addAttribute("ville_select", villeDefaut);
         model.addAttribute("button_submit_text", "Ajouter patient");
         return "patients/add_edit";
     }
@@ -56,7 +57,8 @@ public class PatientController {
             p.setPrenom(request.getParameter("prenom"));
             p.setEmail(request.getParameter("email"));
             p.setTelephone(request.getParameter("telephone"));
-            p.setVille(Integer.valueOf(request.getParameter("ville")));
+            Ville v = vr.findById(Integer.valueOf(request.getParameter("ville"))).orElse(null);
+            p.setVille(v);
             pr.save(p);
         } catch (Exception e) {
 
@@ -101,8 +103,8 @@ public class PatientController {
             p.setPrenom(request.getParameter("prenom"));
             p.setEmail(request.getParameter("email"));
             p.setTelephone(request.getParameter("telephone"));
-            p.setVille(Integer.valueOf(request.getParameter("ville")));
-
+            Ville v = vr.findById(Integer.valueOf(request.getParameter("ville"))).orElse(null);
+            p.setVille(v);
             pr.save(p);
         } catch (Exception e) {
             System.out.println(e);

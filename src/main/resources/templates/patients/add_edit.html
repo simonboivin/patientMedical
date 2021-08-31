@@ -16,32 +16,35 @@
         <form name="patientForm"  method="POST">
             <div class="form_block">
                 <div class="icon_champ">
-                    <span class="icone"><i class="fas fa-user-edit"></i></span>
+                    <span class="icone"><i class="fas fa-user-edit"></i>Nom</span>
                     <input type="text" name="nom" th:placeholder="${placeholder_nom}" th:value="${value_nom}">
+                </div>
+                <div class="icon_champ">
+                    <span class="icone"><i class="fas fa-user-edit"></i>Prénom</span>
                     <input type="text" name="prenom" th:placeholder="${placeholder_prenom}"
                            th:value="${value_prenom}">
                 </div>
             </div>
             <div class="form_block">
                 <div class="icon_champ">
-                    <span class="icone"><i class="fas fa-at"></i></span>
+                    <span class="icone"><i class="fas fa-at"></i>Email</span>
                     <input type="email" name="email" id="email" th:placeholder="${placeholder_mail}"
                            th:value="${value_mail}">
                 </div>
                 <div class="icon_champ">
-                    <span class="icone"><i class="fas fa-phone-alt"></i></span>
+                    <span class="icone"><i class="fas fa-phone-alt"></i>Téléphone</span>
                     <input type="tel" name="telephone" id="" th:placeholder="${placeholder_telephone}"
                            th:value="${value_telephone}">
                 </div>
             </div>
             <div class=" form_block">
                 <div class="icon_champ">
-                    <span class="icone"><i class="fas fa-city"></i></span>
+                    <span class="icone"><i class="fas fa-city"></i>Ville</span>
                     <select name="ville" id="ville">
 
                         <option th:each="ville : ${liste_villes}"
                                 th:value="${ville.id}"
-                                th:utext="${ville.nom}" th:selected="${ville.id==ville_select}"></option>
+                                th:utext="${ville.nom}" th:selected="${ville.id==ville_select.id}"></option>
                     </select>
                 </div>
             </div>
