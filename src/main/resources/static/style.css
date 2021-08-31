@@ -18,7 +18,7 @@ main {
 
 #formulaire, #login, #liste_patients {
     display: flex;
-    width: 700px;
+    width: 1000px;
     flex-direction: column;
     justify-content: center;
     border: solid 1px gray;
@@ -87,8 +87,11 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
+    justify-content: space-evenly;
     border: solid 1px lightgray;
-    width: 30px;
+    width: 100px;
+    padding-left:10px;
+    padding-right: 10px;
     height: 30px;
     background-color: lightblue;
     border-radius: 3px 0 0 3px;

@@ -43,7 +43,7 @@ public class PatientController {
         model.addAttribute("placeholder_telephone", "Téléphone*");
         List<Ville> lv = (List<Ville>) vr.findAll();
         model.addAttribute("liste_villes", lv);
-       Ville villeDefaut = vr.findById(1).orElse(null);
+        Ville villeDefaut = vr.findById(1).orElse(null);
         model.addAttribute("ville_select", villeDefaut);
         model.addAttribute("button_submit_text", "Ajouter patient");
         return "patients/add_edit";

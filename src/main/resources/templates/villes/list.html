@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="https://kit.fontawesome.com/aa7abb9c95.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+<main>
+  <div id="liste_patients">
+    <div class="entete_formulaire"> Liste des Villes</div>
+    <table>
+      <th>
+      <td>Nom</td>
+      <td>Code Postal</td>
+      </th>
+      <tr th:each="ville : ${liste_villes}">
+        <td th:utext="${ville.id}"></td>
+        <td th:utext="${ville.nom}"></td>
+        <td th:utext="${ville.codePostal}"></td>
+      </tr>
+    </table>
+  </div>
+</main>
+</body>
+
+</html>
