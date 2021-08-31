@@ -6,12 +6,10 @@ import fr.sboivin.springdemo.repositories.PatientRepository;
 import fr.sboivin.springdemo.repositories.VilleRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.DELETE;
 import java.util.List;
 
 
@@ -110,6 +108,27 @@ public class PatientController {
             System.out.println(e);
         }
         return "redirect:/patients/list";
+    }
+
+    @GetMapping(value = "/delete/{id}")
+    public String deletePatientGet(Model model, @PathVariable int id) {
+        model.addAttribute("entete_titre", "Supprimer patient ID " + String.valueOf(id));
+        Patient p = pr.findById(id).orElse(null);
+        model.addAttribute("confirmation_text", "Le patient "+ p.getPrenom() +" "+ p.getNom().toUpperCase() +" va être supprimer");
+        model.addAttribute("button_submit_text", "Supprimer");
+        return  "patients/delete";
+    }
+
+
+    @PostMapping(value = "/delete/{id}")
+    public String deletePatientDelete(@PathVariable int id) {
+        try{
+            Patient p = pr.findById(id).orElse(null);
+            pr.delete(p);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return  "redirect:/patients/list";
     }
 
 }

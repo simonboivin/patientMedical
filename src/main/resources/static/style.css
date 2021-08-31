@@ -54,6 +54,16 @@ main {
     padding-bottom: 10px;
 }
 
+.message_block {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    padding-bottom: 10px;
+    flex-direction: column;
+    align-content: center;
+}
+
+
 .form_block input, .form_block select {
     margin-right: 20px;
     margin-bottom: 20px;
@@ -99,10 +109,20 @@ main {
     border-radius: 3px 0 0 3px;
     font-size: small;
 }
-
 .icon_champ {
     display: flex;
+
 }
+
+.icon_message{
+    display: flex;
+    align-items: center;
+}
+
+.icon_message p{
+    padding-left: 15px;
+}
+
 
 #ville {
     width: 300px;
@@ -131,3 +151,26 @@ th {
     padding-bottom: 10px;
     text-align: left;
 }
+
+button{
+    width: fit-content;
+    padding: 10px 30px;
+    margin-right: 25px;
+    background-color: lightcyan;
+    border-radius: 10px;
+}
+
+button a:any-link{
+    color: black;
+    text-decoration: none;
+}
+
+button:hover{
+    background-color: lightblue;
+}
+
+.fonctions{
+    display: flex;
+    justify-content: flex-end;
+}
+
