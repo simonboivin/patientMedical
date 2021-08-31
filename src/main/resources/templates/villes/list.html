@@ -24,9 +24,22 @@
                     <td th:utext="${ville.id}"></td>
                     <td th:utext="${ville.nom}"></td>
                     <td th:utext="${ville.codePostal}"></td>
-                    <td><a th:href="@{'/villes/edit/' + ${ville.id}}"><i class="fas fa-edit"></i></a></td>
+                    <td>
+                        <a th:href="@{'/villes/edit/' + ${ville.id}}"><i class="fas fa-edit"></i></a>
+                        <a th:href="@{'/villes/delete/' + ${ville.id}}"><i class="fas fa-trash"></i></a>
+                    </td>
                 </tr>
             </table>
+
+            <br/>
+            <div class="fonctions">
+                <button><a href="/villes/add">
+                    Nouvelle ville
+                </a></button>
+                <button><a href="/patients/list">
+                    Liste des patients
+                </a></button>
+            </div>
         </div>
     </div>
 </main>

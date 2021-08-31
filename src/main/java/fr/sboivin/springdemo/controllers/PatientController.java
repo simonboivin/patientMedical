@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.DELETE;
 import java.util.List;
 
 
@@ -116,7 +115,7 @@ public class PatientController {
         Patient p = pr.findById(id).orElse(null);
         model.addAttribute("confirmation_text", "Le patient "+ p.getPrenom() +" "+ p.getNom().toUpperCase() +" va être supprimer");
         model.addAttribute("button_submit_text", "Supprimer");
-        return  "patients/delete";
+        return  "common/delete";
     }
 
 
