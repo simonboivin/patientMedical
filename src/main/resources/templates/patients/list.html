@@ -20,13 +20,13 @@
                 <td>Téléphone</td>
                 <td>Ville</td>
                 </th>
-                <tr>
-                    <td>xx</td>
-                    <td>Dalton</td>
-                    <td>Avrell</td>
-                    <td>avrel@gg.io</td>
-                    <td>0141247000</td>
-                    <td>Paris</td>
+                <tr th:each="patient : ${liste_patient}">
+                    <td th:utext="${patient.id}"></td>
+                    <td th:utext="${patient.nom}"></td>
+                    <td th:utext="${patient.prenom}"></td>
+                    <td th:utext="${patient.email}"></td>
+                    <td th:utext="${patient.telephone}"></td>
+                    <td th:utext="${patient.ville}"></td>
                 </tr>
             </table>
         </div>

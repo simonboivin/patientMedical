@@ -43,6 +43,7 @@ public class PatientController {
         model.addAttribute("placeholder_telephone", "Téléphone*");
         List<Ville> lv = (List<Ville>) vr.findAll();
         model.addAttribute("liste_villes", lv);
+        model.addAttribute("ville_select", 3);
         model.addAttribute("button_submit_text", "Ajouter patient");
         return "patients/add_edit";
     }
@@ -66,23 +67,47 @@ public class PatientController {
 
     @RequestMapping(value = "/list")
     public String listAll(Model model) {
+        List<Patient> lp = (List<Patient>) pr.findAll();
+        model.addAttribute("liste_patient", lp);
         return "patients/list";
     }
 
-    @RequestMapping(value = "/edit/{id}")
+    @GetMapping(value = "/edit/{id}")
     public String editPatient(Model model, @PathVariable int id) {
+
         try {
             Patient p = pr.findById(id).orElse(null);
-            model.addAttribute("entete_titre", "Patient ID " + String.valueOf(id));
+            model.addAttribute("entete_titre", "Modifier patient ID " + String.valueOf(id));
             model.addAttribute("value_nom", p.getNom());
             model.addAttribute("value_prenom", p.getPrenom());
             model.addAttribute("value_mail", p.getEmail());
             model.addAttribute("value_telephone", p.getTelephone());
+            List<Ville> lv = (List<Ville>) vr.findAll();
+            model.addAttribute("liste_villes", lv);
+            model.addAttribute("ville_select", p.getVille());
             model.addAttribute("button_submit_text", "Mettre à jour");
+
         } catch (Exception e) {
 
         }
         return "patients/add_edit";
+    }
+
+    @PostMapping(value = "/edit/{id}")
+    public String editPatientPost(HttpServletRequest request, @PathVariable int id) {
+        try {
+            Patient p = pr.findById(id).orElse(null);
+            p.setNom(request.getParameter("nom"));
+            p.setPrenom(request.getParameter("prenom"));
+            p.setEmail(request.getParameter("email"));
+            p.setTelephone(request.getParameter("telephone"));
+            p.setVille(Integer.valueOf(request.getParameter("ville")));
+
+            pr.save(p);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return "redirect:/patients/list";
     }
 
 }
