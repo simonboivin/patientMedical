@@ -32,7 +32,8 @@
                     <td th:utext="${patient.email}"></td>
                     <td th:utext="${patient.telephone}"></td>
                     <td th:utext="${patient.ville.nom}"></td>
-                    <td></td>
+                    <td><a th:href="@{'/patients/edit/' + ${patient.id}}"><i class="fas fa-edit"></i></a></td>
+
                 </tr>
             </table>
         </div>

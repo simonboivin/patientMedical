@@ -59,7 +59,7 @@ public class VillesController {
     public String editVilles(Model model, @PathVariable int id) {
         try {
             Ville v = vr.findById(id).orElse(null);
-            model.addAttribute("entete_titre", "Modifier VilleID " + String.valueOf(id));
+            model.addAttribute("entete_titre", "Modifier Ville ID " + String.valueOf(id));
             model.addAttribute("value_nom", v.getNom());
             model.addAttribute("value_cp", v.getCodePostal());
             model.addAttribute("button_submit_text", "Mettre à jour");

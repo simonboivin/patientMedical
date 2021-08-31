@@ -125,8 +125,7 @@ table{
 
 th, td{
     border: 1px solid lightsteelblue;
-
-
+    padding:5px;
 }
 th {
     padding-bottom: 10px;

@@ -18,11 +18,13 @@
                     <th>id</th>
                     <th>Nom</th>
                     <th>Code Postal</th>
+                    <th><i class="fas fa-cogs"></i></th>
                 </tr>
                 <tr th:each="ville : ${liste_villes}">
                     <td th:utext="${ville.id}"></td>
                     <td th:utext="${ville.nom}"></td>
                     <td th:utext="${ville.codePostal}"></td>
+                    <td><a th:href="@{'/villes/edit/' + ${ville.id}}"><i class="fas fa-edit"></i></a></td>
                 </tr>
             </table>
         </div>
