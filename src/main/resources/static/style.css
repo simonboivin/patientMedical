@@ -26,6 +26,8 @@ main {
     background-color: white;
 }
 
+
+
 .entete_formulaire {
     background-color: lightblue;
     padding: 15px;
@@ -33,7 +35,7 @@ main {
     border-bottom: solid 1px gray;
 }
 
-#formulaire form {
+#formulaire form, .conteneur_fenetre {
     display: flex;
     padding: 15px;
     flex-direction: column;
@@ -114,4 +116,19 @@ main {
     justify-content: space-around;
     flex-wrap: nowrap;
     height: 150px;
+}
+
+table{
+    padding: 15px;
+    border-collapse: collapse;
+}
+
+th, td{
+    border: 1px solid lightsteelblue;
+
+
+}
+th {
+    padding-bottom: 10px;
+    text-align: left;
 }

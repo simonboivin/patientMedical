@@ -9,17 +9,22 @@
 </head>
 
 <body>
-    <main>
-        <div id="liste_patients">
-            <div class="entete_formulaire"> Liste des Patients</div>
+<main>
+    <div id="liste_patients">
+        <div class="entete_formulaire"> Liste des Patients</div>
+        <div class="conteneur_fenetre">
             <table>
-                <th>
-                <td>Nom</td>
-                <td>Prénom</td>
-                <td>Mail</td>
-                <td>Téléphone</td>
-                <td>Ville</td>
-                </th>
+
+                <tr>
+                    <th>id</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Mail</th>
+                    <th>Téléphone</th>
+                    <th>Ville</th>
+                    <th><i class="fas fa-cogs"></i></th>
+                </tr>
+
                 <tr th:each="patient : ${liste_patient}">
                     <td th:utext="${patient.id}"></td>
                     <td th:utext="${patient.nom}"></td>
@@ -27,10 +32,12 @@
                     <td th:utext="${patient.email}"></td>
                     <td th:utext="${patient.telephone}"></td>
                     <td th:utext="${patient.ville.nom}"></td>
+                    <td></td>
                 </tr>
             </table>
         </div>
-    </main>
+    </div>
+</main>
 </body>
 
 </html>
