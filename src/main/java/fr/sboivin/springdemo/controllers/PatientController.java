@@ -56,7 +56,8 @@ public class PatientController {
             p.setPrenom(request.getParameter("prenom"));
             p.setEmail(request.getParameter("email"));
             p.setTelephone(request.getParameter("telephone"));
-            p.setVille(Integer.valueOf(request.getParameter("ville")));
+            Ville v = vr.findById(Integer.valueOf(request.getParameter("ville"))).orElse(null);
+            p.setVille(v);
             pr.save(p);
         } catch (Exception e) {
 
@@ -101,8 +102,8 @@ public class PatientController {
             p.setPrenom(request.getParameter("prenom"));
             p.setEmail(request.getParameter("email"));
             p.setTelephone(request.getParameter("telephone"));
-            p.setVille(Integer.valueOf(request.getParameter("ville")));
-
+            Ville v = vr.findById(Integer.valueOf(request.getParameter("ville"))).orElse(null);
+            p.setVille(v);
             pr.save(p);
         } catch (Exception e) {
             System.out.println(e);

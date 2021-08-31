@@ -10,7 +10,7 @@ public class Patient {
     private String email;
     private String telephone;
     private String photo;
-    private int ville;
+    private Ville ville;
 
     @Id
     @Column(name = "id")
@@ -100,13 +100,13 @@ public class Patient {
         return result;
     }
 
-    @Basic
-    @Column(name = "ville", nullable = true)
-    public Integer getVille() {
+    @OneToOne
+    @JoinColumn(name = "ville", referencedColumnName = "id")
+    public Ville getVille() {
         return ville;
     }
 
-    public void setVille(Integer ville) {
+    public void setVille(Ville ville) {
         this.ville = ville;
     }
 }

@@ -41,7 +41,7 @@
 
                         <option th:each="ville : ${liste_villes}"
                                 th:value="${ville.id}"
-                                th:utext="${ville.nom}" th:selected="${ville.id==ville_select}"></option>
+                                th:utext="${ville.nom}" th:selected="${ville.id==ville_select.id}"></option>
                     </select>
                 </div>
             </div>
