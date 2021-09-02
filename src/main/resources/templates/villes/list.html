@@ -2,28 +2,48 @@
 <html xmlns:th="https://www.thymeleaf.org">
 
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-  <link rel="stylesheet" href="/style.css">
-  <script src="https://kit.fontawesome.com/aa7abb9c95.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://kit.fontawesome.com/aa7abb9c95.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
+
+<header th:include="~{ header :: #header }"></header>
 <main>
-  <div id="liste_patients">
-    <div class="entete_formulaire"> Liste des Villes</div>
-    <table>
-      <th>
-      <td>Nom</td>
-      <td>Code Postal</td>
-      </th>
-      <tr th:each="ville : ${liste_villes}">
-        <td th:utext="${ville.id}"></td>
-        <td th:utext="${ville.nom}"></td>
-        <td th:utext="${ville.codePostal}"></td>
-      </tr>
-    </table>
-  </div>
+    <div id="liste_patients">
+        <div class="entete_formulaire"> Liste des Villes</div>
+        <div class="conteneur_fenetre">
+            <table>
+                <tr>
+                    <th>id</th>
+                    <th>Nom</th>
+                    <th>Code Postal</th>
+                    <th><i class="fas fa-cogs"></i></th>
+                </tr>
+                <tr th:each="ville : ${liste_villes}">
+                    <td th:utext="${ville.id}"></td>
+                    <td th:utext="${ville.nom}"></td>
+                    <td th:utext="${ville.codePostal}"></td>
+                    <td>
+                        <a th:href="@{'/villes/edit/' + ${ville.id}}"><i class="fas fa-edit"></i></a>
+                        <a th:href="@{'/villes/delete/' + ${ville.id}}"><i class="fas fa-trash"></i></a>
+                    </td>
+                </tr>
+            </table>
+
+            <br/>
+            <div class="fonctions">
+                <button><a href="/villes/add">
+                    Nouvelle ville
+                </a></button>
+                <button><a href="/patients/list">
+                    Liste des patients
+                </a></button>
+            </div>
+        </div>
+    </div>
 </main>
 </body>
 

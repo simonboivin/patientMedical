@@ -4,12 +4,14 @@ import fr.sboivin.springdemo.entities.Patient;
 import fr.sboivin.springdemo.entities.Ville;
 import fr.sboivin.springdemo.repositories.PatientRepository;
 import fr.sboivin.springdemo.repositories.VilleRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -90,7 +92,7 @@ public class PatientController {
             model.addAttribute("button_submit_text", "Mettre à jour");
 
         } catch (Exception e) {
-
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Le patient " + id + " n'est pas trouvé");
         }
         return "patients/add_edit";
     }
@@ -107,7 +109,32 @@ public class PatientController {
             p.setVille(v);
             pr.save(p);
         } catch (Exception e) {
-            System.out.println(e);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erreur dans l'édition du patient "+id);
+        }
+        return "redirect:/patients/list";
+    }
+
+    @GetMapping(value = "/delete/{id}")
+    public String deletePatientGet(Model model, @PathVariable int id) {
+        try {
+            model.addAttribute("entete_titre", "Supprimer patient ID " + String.valueOf(id));
+            Patient p = pr.findById(id).orElse(null);
+            model.addAttribute("confirmation_text", "Le patient " + p.getPrenom() + " " + p.getNom().toUpperCase() + " va être supprimer");
+            model.addAttribute("button_submit_text", "Supprimer");
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Le patient " + id + " n'est pas trouvé");
+        }
+        return "common/delete";
+    }
+
+
+    @PostMapping(value = "/delete/{id}")
+    public String deletePatientDelete(@PathVariable int id) {
+        try {
+            Patient p = pr.findById(id).orElse(null);
+            pr.delete(p);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erreur dans la suppression du patient "+id);
         }
         return "redirect:/patients/list";
     }

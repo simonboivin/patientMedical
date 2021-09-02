@@ -1,13 +1,35 @@
-html, body, main {
-    height: 99%;
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
+body, main {
+    box-sizing: border-box;
 }
 
 body {
+    display: flex;
+    flex-direction: column;
     background-image: url(/back.jpg);
     background-size: 100%;
 }
 
+header {
+    display: flex;
+    width: 100%;
+    height: 50px;
+    background: white;
+    box-shadow: 0px 10px 15px lightblue;
+    align-items: center;
+}
+
+header h1{
+    font-family: "Baskerville Old Face", serif;
+    padding-left: 25px;
+}
+
 main {
+    height: inherit;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -26,6 +48,7 @@ main {
     background-color: white;
 }
 
+
 .entete_formulaire {
     background-color: lightblue;
     padding: 15px;
@@ -33,7 +56,7 @@ main {
     border-bottom: solid 1px gray;
 }
 
-#formulaire form {
+#formulaire form, .conteneur_fenetre {
     display: flex;
     padding: 15px;
     flex-direction: column;
@@ -51,6 +74,16 @@ main {
     flex-wrap: wrap;
     padding-bottom: 10px;
 }
+
+.message_block {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    padding-bottom: 10px;
+    flex-direction: column;
+    align-content: center;
+}
+
 
 .form_block input, .form_block select {
     margin-right: 20px;
@@ -90,7 +123,7 @@ main {
     justify-content: space-evenly;
     border: solid 1px lightgray;
     width: 100px;
-    padding-left:10px;
+    padding-left: 10px;
     padding-right: 10px;
     height: 30px;
     background-color: lightblue;
@@ -100,7 +133,18 @@ main {
 
 .icon_champ {
     display: flex;
+
 }
+
+.icon_message {
+    display: flex;
+    align-items: center;
+}
+
+.icon_message p {
+    padding-left: 15px;
+}
+
 
 #ville {
     width: 300px;
@@ -115,3 +159,41 @@ main {
     flex-wrap: nowrap;
     height: 150px;
 }
+
+table {
+    padding: 15px;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid lightsteelblue;
+    padding: 5px;
+}
+
+th {
+    padding-bottom: 10px;
+    text-align: left;
+}
+
+button {
+    width: fit-content;
+    padding: 10px 30px;
+    margin-right: 25px;
+    background-color: lightcyan;
+    border-radius: 10px;
+}
+
+button a:any-link {
+    color: black;
+    text-decoration: none;
+}
+
+button:hover {
+    background-color: lightblue;
+}
+
+.fonctions {
+    display: flex;
+    justify-content: flex-end;
+}
+
