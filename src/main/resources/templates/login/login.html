@@ -10,13 +10,13 @@
 </head>
 
 <body>
-
+<header th:include="~{ header :: #header }"></header>
 
     <body>
         <main>
             <div id="login">
                 <div class="entete_formulaire">Connection</div>
-                <form action="../patients/list" method="POST" id="login_form">
+                <form action="/patients/list" method="POST" id="login_form">
                     <input type="text" name="login" placeholder="Identifiant">
                     <input type="text" name="password" placeholder="Mot de passe">
                     <button>Connection</button>
