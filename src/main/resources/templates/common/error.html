@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://kit.fontawesome.com/aa7abb9c95.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+<header th:include="~{ header :: #header }"></header>
+
+<main>
+    <div id="formulaire">
+        <div class="entete_formulaire" th:text="${entete_titre}">Erreur</div>
+
+            <div class="message_block">
+                <div class="icon_message">
+                    <span class="icone"><i class="fas fa-exclamation-triangle"></i></span>
+                    <P th:text="${erreur_texte}">Erreur inconnue</P>
+                </div>
+
+
+    </div>
+</main>
+</body>
+
+</html>
