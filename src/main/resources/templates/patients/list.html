@@ -34,7 +34,7 @@
                     <td th:utext="${patient.prenom}"></td>
                     <td th:utext="${patient.email}"></td>
                     <td th:utext="${patient.telephone}"></td>
-                    <td th:utext="${patient.ville.nom}"></td>
+                    <td th:utext="${patient.ville?.nom}"></td>
                     <td>
                         <a th:href="@{'/patients/edit/' + ${patient.id}}"><i class="fas fa-edit"></i></a>
                         <a th:href="@{'/patients/delete/' + ${patient.id}}"><i class="fas fa-trash"></i></a>
