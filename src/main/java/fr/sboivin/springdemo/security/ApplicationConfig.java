@@ -9,28 +9,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.sql.DataSource;
-
 @Configuration
 public class ApplicationConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private DataSource dataSource;
 
     @Autowired
     private UserDetailsService userDetailsService;
 
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-/*        auth.jdbcAuthentication().dataSource(dataSource)
-                .usersByUsernameQuery("select email, password , 1 as enabled "
-                        + "from user "
-                        + "where email = ?")
-                .authoritiesByUsernameQuery("select email, roles "
-                        + "from user "
-                        + "where email = ?")
-                .passwordEncoder( passwordEncoder()
-                );
-*/
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 

@@ -12,17 +12,15 @@
             <div class="entete_formulaire"> Liste des Patients</div>
             <div class="conteneur_fenetre">
                 <table>
-
                     <tr>
                         <th>id</th>
                         <th>Nom</th>
                         <th>Prénom</th>
-                        <th>Mail</th>s
+                        <th>Mail</th>
                         <th>Téléphone</th>
                         <th>Ville</th>
                         <th><i class="fas fa-cogs"></i></th>
                     </tr>
-
                     <tr th:each="patient : ${liste_patient}">
                         <td th:utext="${patient.id}"></td>
                         <td th:utext="${patient.nom}"></td>
@@ -34,7 +32,6 @@
                             <a th:href="@{'/patients/edit/' + ${patient.id}}"><i class="fas fa-edit"></i></a>
                             <a th:href="@{'/patients/delete/' + ${patient.id}}"><i class="fas fa-trash"></i></a>
                         </td>
-
                     </tr>
                 </table>
                 <br />

@@ -7,14 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/")
-public class LoginController {
+public class HomeController {
 
-
-    @RequestMapping("/login")
-    public String loginPage(Model model) {
-        return "connect/login";
+    @RequestMapping("/")
+    public String homePage(Model model) {
+        model.addAttribute("message","Bonjour");
+        return "hello";
     }
-
-
 }
-

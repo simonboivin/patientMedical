@@ -6,7 +6,10 @@
 
 
 <body>
-    <h1 th:text="${message}"></h1>
+    <header th:include="~{ header :: #header }"></header>
+    <main>
+        <h1 th:text="${message}"></h1>
+    </main>
 </body>
 
 </html>
