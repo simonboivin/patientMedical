@@ -1,21 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="/style.css">
-    <script src="https://kit.fontawesome.com/aa7abb9c95.js" crossorigin="anonymous"></script>
-
-</head>
+<head th:include="~{ head :: #head }"></head>
 
 <body>
 
-<header th:include="~{ header :: #header }"></header>
+    <header th:include="~{ header :: #header }"></header>
 
-<main>
-    <div id="formulaire">
-        <div class="entete_formulaire" th:text="${entete_titre}">Erreur</div>
+    <main>
+        <div id="formulaire">
+            <div class="entete_formulaire" th:text="${entete_titre}">Erreur</div>
 
             <div class="message_block">
                 <div class="icon_message">
@@ -24,8 +18,8 @@
                 </div>
 
 
-    </div>
-</main>
+            </div>
+    </main>
 </body>
 
 </html>
