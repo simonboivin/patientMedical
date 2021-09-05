@@ -16,7 +16,7 @@
                         <th>Nom</th>
                         <th>Email</th>
                         <th>Rôle</th>
-                        <th>Image d'utilisateur</th>
+                        <th>Photo</th>
                         <th><i class="fas fa-cogs"></i></th>
                     </tr>
                     <tr th:each="Utilisateur : ${liste_utilisateurs}">
@@ -27,15 +27,15 @@
                         <td><a href="" th:utext="${Utilisateur.photouser}"
                                 th:href="@{'/profils/' + ${Utilisateur.photouser}}" target="popup"></a></td>
                         <td>
-                            <a th:href="@{'/utilisateurs/edit/' + ${Utilisateur.id}}"><i class="fas fa-edit"></i></a>
-                            <a th:href="@{'/Utilisateurs/delete/' + ${Utilisateur.id}}"><i class="fas fa-trash"></i></a>
+                            <a th:href="@{'/users/edit/' + ${Utilisateur.id}}"><i class="fas fa-edit"></i></a>
+                            <a th:href="@{'/users/delete/' + ${Utilisateur.id}}"><i class="fas fa-trash"></i></a>
                         </td>
                     </tr>
                 </table>
 
                 <br />
                 <div class="fonctions">
-                    <button><a href="/utilisateurs/add">
+                    <button><a href="/users/add">
                             Nouvel Utilisateur
                         </a></button>
 

@@ -88,7 +88,7 @@ public class VillesController {
         try {
             model.addAttribute("entete_titre", "Supprimer Ville ID " + String.valueOf(id));
             Ville v = vr.findById(id).orElse(null);
-            model.addAttribute("confirmation_text", "La ville " + v.getNom() + " va être supprimer");
+            model.addAttribute("confirmation_text", "La ville " + v.getNom() + " sera supprimée");
             model.addAttribute("button_submit_text", "Supprimer");
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La ville " + id + " n'est pas trouvée");

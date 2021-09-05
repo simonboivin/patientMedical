@@ -26,6 +26,9 @@ public class ApplicationConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    public String encodePassword(String clearPassword) {
+        return passwordEncoder().encode(clearPassword);
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

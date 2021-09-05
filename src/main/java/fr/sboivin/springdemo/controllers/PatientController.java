@@ -30,7 +30,7 @@ public class PatientController {
     }
 
 
-  
+
 
     @GetMapping(value = "/add")
     public String addPatientGet(Model model) {
@@ -113,7 +113,7 @@ public class PatientController {
         try {
             model.addAttribute("entete_titre", "Supprimer patient ID " + String.valueOf(id));
             Patient p = pr.findById(id).orElse(null);
-            model.addAttribute("confirmation_text", "Le patient " + p.getPrenom() + " " + p.getNom().toUpperCase() + " va être supprimer");
+            model.addAttribute("confirmation_text", "Le patient " + p.getPrenom() + " " + p.getNom().toUpperCase() + " sera supprimé");
             model.addAttribute("button_submit_text", "Supprimer");
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Le patient " + id + " n'est pas trouvé");
