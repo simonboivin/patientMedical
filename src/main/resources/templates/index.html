@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head th:include="~{ head :: #head }"></head>
+
+<body>
+
+    <header th:include="~{ header :: #header }"></header>
+
+    <main>
+        <div id="dashboard">
+            <div class="entete_fenetre">Menu</div>
+            <div class="conteneur_fenetre">
+                <button><a href="/patients/list">
+                        <i class="fas fa-user-injured"></i>Patients
+                    </a></button>
+                <button><a href="/villes/list">
+                        <i class="fas fa-city"></i>Villes
+                    </a></button>
+                <button><a href="/rdv/list">
+                        <i class="far fa-calendar-alt"></i>Rendez-vous
+                    </a></button>
+                <button><a href="/users/list">
+                        <i class="far fa-user-circle"></i>Utilisateurs
+                    </a></button>
+
+
+                <button><a href="/logout">
+                        <i class="fas fa-sign-out-alt"></i>Déconnexion
+                    </a></button>
+
+            </div>
+
+
+        </div>
+    </main>
+    <footer th:include="~{ footer :: #footer }"></footer>
+</body>
+
+</html>

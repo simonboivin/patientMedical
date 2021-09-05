@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head th:include="~{ head :: #head }"></head>
+
+<body>
+
+    <header th:include="~{ header :: #header }"></header>
+    <main>
+        <div id="formulaire">
+            <div class="entete_fenetre" th:text="${entete_titre}"></div>
+            <form name="userForm" method="POST">
+                <div class="form_block">
+                    <div class="icon_champ">
+                        <span class="icone"><i class="fas fa-user-edit"></i>Nom</span>
+                        <input type="text" name="nom" th:placeholder="${placeholder_nom}" th:value="${value_nom}"
+                            required>
+                    </div>
+                    <div class="icon_champ">
+                        <span class="icone"><i class="fas fa-portrait"></i></i>Photo</span>
+                        <input type="text" name="photouser" id="photouser" th:value="${value_photouser}">
+                    </div>
+
+
+                </div>
+                <div class="form_block">
+                    <div class="icon_champ">
+                        <span class="icone"><i class="fas fa-at"></i>Email</span>
+                        <input type="email" name="email" id="email" th:placeholder="${placeholder_mail}"
+                            th:value="${value_mail}" required>
+                    </div>
+                    <div class="icon_champ">
+                        <span class="icone"><i class="fas fa-key"></i></i>Mot de passe</span>
+                        <input type="password" name="password" id="password" th:required="${!is_edit}"
+                            placeholder="***">
+                    </div>
+
+                </div>
+                <div class="form_block">
+                    <div class="icon_champ">
+                        <span class="icone"><i class="fas fa-crown"></i>Rôle</span>
+
+                        <div>
+                            <input type="radio" id="user" name="roles" value="ROLE_USER" th:checked="${!as_admin}">
+                            <label for="user">Utilisateur</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="admin" name="roles" value="ROLE_ADMIN" th:checked="${as_admin}">
+                            <label for="admin">Administrateur</label>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <button th:text="${button_submit_text}"></button>
+            </form>
+        </div>
+    </main>
+    <footer th:include="~{ footer :: #footer }"></footer>
+</body>
+
+</html>

@@ -1,9 +1,16 @@
 <html xmlns:th="https://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+
+<head th:include="~{ head :: #head }"></head>
+
+
+
+
 <body>
-<h1 th:text="${message}"></h1>
+    <header th:include="~{ header :: #header }"></header>
+    <main>
+        <h1 th:text="${message}"></h1>
+    </main>
+    <footer th:include="~{ footer :: #footer }"></footer>
 </body>
+
 </html>

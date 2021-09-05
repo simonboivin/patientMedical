@@ -30,11 +30,7 @@ public class PatientController {
     }
 
 
-    @RequestMapping(value = "/")
-    public String hello(Model model) {
-        model.addAttribute("message", "Hello World");
-        return "hello";
-    }
+
 
     @GetMapping(value = "/add")
     public String addPatientGet(Model model) {
@@ -63,7 +59,6 @@ public class PatientController {
             p.setVille(v);
             pr.save(p);
         } catch (Exception e) {
-
         }
         return "redirect:/patients/list";
     }
@@ -78,7 +73,6 @@ public class PatientController {
 
     @GetMapping(value = "/edit/{id}")
     public String editPatient(Model model, @PathVariable int id) {
-
         try {
             Patient p = pr.findById(id).orElse(null);
             model.addAttribute("entete_titre", "Modifier patient ID " + String.valueOf(id));
@@ -119,7 +113,7 @@ public class PatientController {
         try {
             model.addAttribute("entete_titre", "Supprimer patient ID " + String.valueOf(id));
             Patient p = pr.findById(id).orElse(null);
-            model.addAttribute("confirmation_text", "Le patient " + p.getPrenom() + " " + p.getNom().toUpperCase() + " va être supprimer");
+            model.addAttribute("confirmation_text", "Le patient " + p.getPrenom() + " " + p.getNom().toUpperCase() + " sera supprimé");
             model.addAttribute("button_submit_text", "Supprimer");
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Le patient " + id + " n'est pas trouvé");

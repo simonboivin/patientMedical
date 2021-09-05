@@ -1,61 +1,54 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="/style.css">
-    <script src="https://kit.fontawesome.com/aa7abb9c95.js" crossorigin="anonymous"></script>
-</head>
+<head th:include="~{ head :: #head }"></head>
 
 <body>
 
-<header th:include="~{ header :: #header }"></header>
+    <header th:include="~{ header :: #header }"></header>
 
-<main>
-    <div id="liste_patients">
-        <div class="entete_formulaire"> Liste des Patients</div>
-        <div class="conteneur_fenetre">
-            <table>
+    <main>
+        <div id="liste_patients">
+            <div class="entete_fenetre"> Liste des Patients</div>
+            <div class="conteneur_fenetre">
+                <table>
+                    <tr>
+                        <th>id</th>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Mail</th>
+                        <th>Téléphone</th>
+                        <th>Ville</th>
+                        <th><i class="fas fa-cogs"></i></th>
+                    </tr>
+                    <tr th:each="patient : ${liste_patient}">
+                        <td th:utext="${patient.id}"></td>
+                        <td th:utext="${patient.nom}"></td>
+                        <td th:utext="${patient.prenom}"></td>
+                        <td th:utext="${patient.email}"></td>
+                        <td th:utext="${patient.telephone}"></td>
+                        <td th:utext="${patient.ville?.nom}"></td>
+                        <td>
+                            <a th:href="@{'/patients/edit/' + ${patient.id}}"><i class="fas fa-edit"></i></a>
+                            <a th:href="@{'/patients/delete/' + ${patient.id}}"><i class="fas fa-trash"></i></a>
+                        </td>
+                    </tr>
+                </table>
+                <br />
+                <div class="fonctions">
+                    <button><a href="/patients/add">
+                            Nouveau patient
+                        </a></button>
 
-                <tr>
-                    <th>id</th>
-                    <th>Nom</th>
-                    <th>Prénom</th>
-                    <th>Mail</th>
-                    <th>Téléphone</th>
-                    <th>Ville</th>
-                    <th><i class="fas fa-cogs"></i></th>
-                </tr>
-
-                <tr th:each="patient : ${liste_patient}">
-                    <td th:utext="${patient.id}"></td>
-                    <td th:utext="${patient.nom}"></td>
-                    <td th:utext="${patient.prenom}"></td>
-                    <td th:utext="${patient.email}"></td>
-                    <td th:utext="${patient.telephone}"></td>
-                    <td th:utext="${patient.ville.nom}"></td>
-                    <td>
-                        <a th:href="@{'/patients/edit/' + ${patient.id}}"><i class="fas fa-edit"></i></a>
-                        <a th:href="@{'/patients/delete/' + ${patient.id}}"><i class="fas fa-trash"></i></a>
-                    </td>
-
-                </tr>
-            </table>
-            <br/>
-            <div class="fonctions">
-                <button><a href="/patients/add">
-                    Nouveau patient
-                </a></button>
-                <button><a href="/villes/list">
-                   Liste des villes
-                </a></button>
+                </div>
             </div>
+
+
         </div>
+    </main>
 
+    <footer th:include="~{ footer :: #footer }"></footer>
 
-    </div>
-</main>
 </body>
 
 </html>
