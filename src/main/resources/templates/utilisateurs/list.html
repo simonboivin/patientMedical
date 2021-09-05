@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head th:include="~{ head :: #head }"></head>
+
+<body>
+
+    <header th:include="~{ header :: #header }"></header>
+    <main>
+        <div id="liste_utilisateurs">
+            <div class="entete_fenetre"> Liste des Utilisateurs</div>
+            <div class="conteneur_fenetre">
+                <table>
+                    <tr>
+                        <th>id</th>
+                        <th>Nom</th>
+                        <th>Email</th>
+                        <th>Rôle</th>
+                        <th>Image d'utilisateur</th>
+                        <th><i class="fas fa-cogs"></i></th>
+                    </tr>
+                    <tr th:each="Utilisateur : ${liste_utilisateurs}">
+                        <td th:utext="${Utilisateur.id}"></td>
+                        <td th:utext="${Utilisateur.name}"></td>
+                        <td th:utext="${Utilisateur.email}"></td>
+                        <td th:utext="${Utilisateur.roles}"></td>
+                        <td><a href="" th:utext="${Utilisateur.photouser}"
+                                th:href="@{'/profils/' + ${Utilisateur.photouser}}" target="popup"></a></td>
+                        <td>
+                            <a th:href="@{'/utilisateurs/edit/' + ${Utilisateur.id}}"><i class="fas fa-edit"></i></a>
+                            <a th:href="@{'/Utilisateurs/delete/' + ${Utilisateur.id}}"><i class="fas fa-trash"></i></a>
+                        </td>
+                    </tr>
+                </table>
+
+                <br />
+                <div class="fonctions">
+                    <button><a href="/utilisateurs/add">
+                            Nouvel Utilisateur
+                        </a></button>
+
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer th:include="~{ footer :: #footer }"></footer>
+</body>
+
+</html>

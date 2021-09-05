@@ -30,11 +30,7 @@ public class PatientController {
     }
 
 
-    @RequestMapping(value = "/")
-    public String hello(Model model) {
-        model.addAttribute("message", "Hello World");
-        return "hello";
-    }
+  
 
     @GetMapping(value = "/add")
     public String addPatientGet(Model model) {
@@ -63,7 +59,6 @@ public class PatientController {
             p.setVille(v);
             pr.save(p);
         } catch (Exception e) {
-
         }
         return "redirect:/patients/list";
     }
@@ -78,7 +73,6 @@ public class PatientController {
 
     @GetMapping(value = "/edit/{id}")
     public String editPatient(Model model, @PathVariable int id) {
-
         try {
             Patient p = pr.findById(id).orElse(null);
             model.addAttribute("entete_titre", "Modifier patient ID " + String.valueOf(id));

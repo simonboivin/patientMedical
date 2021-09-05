@@ -8,7 +8,7 @@
     <header th:include="~{ header :: #header }"></header>
     <main>
         <div id="formulaire">
-            <div class="entete_formulaire" th:text="${entete_titre}"></div>
+            <div class="entete_fenetre" th:text="${entete_titre}"></div>
             <form name="deleteForm" action="" method="POST">
                 <div class="message_block">
                     <div class="icon_message">
@@ -20,6 +20,7 @@
             </form>
         </div>
     </main>
+    <footer th:include="~{ footer :: #footer }"></footer>
 </body>
 
 </html>

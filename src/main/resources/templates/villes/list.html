@@ -8,7 +8,7 @@
     <header th:include="~{ header :: #header }"></header>
     <main>
         <div id="liste_patients">
-            <div class="entete_formulaire"> Liste des Villes</div>
+            <div class="entete_fenetre"> Liste des Villes</div>
             <div class="conteneur_fenetre">
                 <table>
                     <tr>
@@ -33,13 +33,12 @@
                     <button><a href="/villes/add">
                             Nouvelle ville
                         </a></button>
-                    <button><a href="/patients/list">
-                            Liste des patients
-                        </a></button>
+
                 </div>
             </div>
         </div>
     </main>
+    <footer th:include="~{ footer :: #footer }"></footer>
 </body>
 
 </html>

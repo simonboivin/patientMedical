@@ -8,8 +8,8 @@
     <header th:include="~{ header :: #header }"></header>
 
     <main>
-        <div id="formulaire">
-            <div class="entete_formulaire" th:text="${entete_titre}">Erreur</div>
+        <div id="erreur">
+            <div class="entete_fenetre" th:text="${entete_titre}">Erreur</div>
 
             <div class="message_block">
                 <div class="icon_message">
@@ -20,6 +20,7 @@
 
             </div>
     </main>
+    <footer th:include="~{ footer :: #footer }"></footer>
 </body>
 
 </html>

@@ -22,7 +22,7 @@ public class GlobalControllerAdvice {
     public String returnBonjour(Authentication authentication) {
         if (authentication != null) {
             User u = ur.findByEmail(authentication.getName());
-            return u.getName();
+            return "Connecté:  " + u.getName();
         } else {
             return "Non connecté";
         }
@@ -40,4 +40,23 @@ public class GlobalControllerAdvice {
         }
 
     }
+
+    @ModelAttribute("connection_message")
+    public String connectionMessage(Authentication authentication){
+        if (authentication != null) {
+            return "Logout";
+        } else {
+            return "Login";
+        }
+    }
+
+    @ModelAttribute("connection_url")
+    public String connectionURL(Authentication authentication){
+        if (authentication != null) {
+            return "/logout";
+        } else {
+            return "/login";
+        }
+    }
+
 }

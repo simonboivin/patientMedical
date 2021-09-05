@@ -1,10 +1,10 @@
-html, body {
-    margin: 0;
+html {
     height: 100%;
 }
 
-body, main {
+html, body {
     box-sizing: border-box;
+    margin: 0;
 }
 
 body {
@@ -12,6 +12,12 @@ body {
     flex-direction: column;
     background-image: url(/img/back.jpg);
     background-size: 100%;
+    width: 100vw;
+    height: 100%;
+    min-height: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 header {
@@ -23,6 +29,22 @@ header {
     align-items: center;
     justify-content: space-between;
     color: white;
+    align-self: flex-start;
+}
+
+footer {
+    display: flex;
+    width: 100%;
+    height: 40px;
+    background: linear-gradient(rgb(80, 80, 80), black);
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    align-self: flex-end;
+}
+
+footer div {
+    padding: 0px 15px;
 }
 
 .header_logo {
@@ -35,7 +57,7 @@ header {
 }
 
 main {
-    height: inherit;
+    height: 97%;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -44,7 +66,7 @@ main {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-#formulaire, #login, #liste_patients {
+#formulaire, #login, #liste_patients, #dashboard, #liste_utilisateurs, #erreur {
     display: flex;
     width: 1000px;
     flex-direction: column;
@@ -54,17 +76,30 @@ main {
     background-color: white;
 }
 
-.entete_formulaire {
+.entete_fenetre {
     background-color: lightblue;
     padding: 15px;
     font-weight: bold;
     border-bottom: solid 1px gray;
 }
 
+#erreur .entete_fenetre {
+    background-color: crimson;
+    color: white;
+}
+
 #formulaire form, .conteneur_fenetre {
     display: flex;
     padding: 15px;
     flex-direction: column;
+}
+
+#dashboard .conteneur_fenetre {
+    display: flex;
+    padding: 50px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
 }
 
 .personne {
@@ -141,6 +176,11 @@ main {
     font-size: small;
 }
 
+#erreur .icone {
+    background-color: crimson;
+    color: white;
+}
+
 .icon_champ {
     display: flex;
 }
@@ -191,6 +231,22 @@ button {
     border-radius: 10px;
 }
 
+#dashboard button {
+    padding: 0px;
+    width: 250px;
+    height: 75px;
+    margin: 25px 50px;
+    font-size: larger;
+}
+
+#dashboard .conteneur_fenetre {
+    flex-wrap: wrap;
+}
+
+#dashboard i {
+    padding-right: 10px;
+}
+
 button a:any-link {
     color: black;
     text-decoration: none;
@@ -209,4 +265,13 @@ button:hover {
     display: flex;
     justify-self: end;
     align-items: center;
+}
+
+footer a:any-link {
+    color: white;
+    text-decoration: none;
+}
+
+footer i {
+    padding-right: 10px;
 }

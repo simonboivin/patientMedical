@@ -4,12 +4,12 @@
 <head th:include="~{ head :: #head }"></head>
 
 <body>
-    <header th:include="~{ header :: #header }"></header>   
+    <header th:include="~{ header :: #header }"></header>
 
     <body>
         <main>
             <div id="login">
-                <div class="entete_formulaire">Connexion</div>
+                <div class="entete_fenetre">Connexion</div>
                 <form name="login_form" action="" method="post" id="login_form">
                     <input type="email" name="username" placeholder="Identifiant">
                     <input type="password" name="password" placeholder="Mot de passe">
@@ -17,6 +17,7 @@
                 </form>
             </div>
         </main>
+        <footer th:include="~{ footer :: #footer }"></footer>
 
     </body>
 

@@ -9,7 +9,7 @@
 
     <main>
         <div id="liste_patients">
-            <div class="entete_formulaire"> Liste des Patients</div>
+            <div class="entete_fenetre"> Liste des Patients</div>
             <div class="conteneur_fenetre">
                 <table>
                     <tr>
@@ -39,15 +39,16 @@
                     <button><a href="/patients/add">
                             Nouveau patient
                         </a></button>
-                    <button><a href="/villes/list">
-                            Liste des villes
-                        </a></button>
+
                 </div>
             </div>
 
 
         </div>
     </main>
+
+    <footer th:include="~{ footer :: #footer }"></footer>
+
 </body>
 
 </html>
