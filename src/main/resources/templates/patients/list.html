@@ -19,7 +19,7 @@
                         <th>Mail</th>
                         <th>Téléphone</th>
                         <th>Ville</th>
-                        <th><i class="fas fa-cogs"></i></th>
+                        <th sec:authorize="hasRole('ROLE_ADMIN')"><i class="fas fa-cogs"></i></th>
                     </tr>
                     <tr th:each="patient : ${liste_patient}">
                         <td th:utext="${patient.id}"></td>
@@ -28,14 +28,14 @@
                         <td th:utext="${patient.email}"></td>
                         <td th:utext="${patient.telephone}"></td>
                         <td th:utext="${patient.ville?.nom}"></td>
-                        <td>
+                        <td sec:authorize="hasRole('ROLE_ADMIN')">
                             <a th:href="@{'/patients/edit/' + ${patient.id}}"><i class="fas fa-edit"></i></a>
                             <a th:href="@{'/patients/delete/' + ${patient.id}}"><i class="fas fa-trash"></i></a>
                         </td>
                     </tr>
                 </table>
                 <br />
-                <div class="fonctions">
+                <div sec:authorize="hasRole('ROLE_ADMIN')" class="fonctions">
                     <button><a href="/patients/add">
                             Nouveau patient
                         </a></button>
