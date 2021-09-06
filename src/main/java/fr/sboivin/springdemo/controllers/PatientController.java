@@ -30,15 +30,9 @@ public class PatientController {
     }
 
 
-
-
     @GetMapping(value = "/add")
     public String addPatientGet(Model model) {
         model.addAttribute("entete_titre", "Ajouter patient");
-        model.addAttribute("placeholder_nom", "Nom*");
-        model.addAttribute("placeholder_prenom", "Prénom*");
-        model.addAttribute("placeholder_mail", "Email*");
-        model.addAttribute("placeholder_telephone", "Téléphone*");
         List<Ville> lv = (List<Ville>) vr.findAll();
         model.addAttribute("liste_villes", lv);
         Ville villeDefaut = vr.findById(1).orElse(null);
@@ -103,7 +97,7 @@ public class PatientController {
             p.setVille(v);
             pr.save(p);
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erreur dans l'édition du patient "+id);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erreur dans l'édition du patient " + id);
         }
         return "redirect:/patients/list";
     }
@@ -128,7 +122,7 @@ public class PatientController {
             Patient p = pr.findById(id).orElse(null);
             pr.delete(p);
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erreur dans la suppression du patient "+id);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erreur dans la suppression du patient " + id);
         }
         return "redirect:/patients/list";
     }

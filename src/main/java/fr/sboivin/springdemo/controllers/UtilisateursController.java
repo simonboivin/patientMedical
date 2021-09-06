@@ -39,8 +39,6 @@ public class UtilisateursController {
     @GetMapping(value = "/add")
     public String addUserGet(Model model) {
         model.addAttribute("entete_titre", "Ajouter utilisateur");
-        model.addAttribute("placeholder_nom", "Nom*");
-        model.addAttribute("placeholder_mail", "Email*");
         model.addAttribute("value_photouser", "user.png");
         model.addAttribute("as_admin", false);
         model.addAttribute("is_edit", false);
