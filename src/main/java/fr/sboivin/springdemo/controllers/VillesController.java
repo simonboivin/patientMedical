@@ -27,8 +27,6 @@ public class VillesController {
     @GetMapping(value = "/add")
     public String addVilleGet(Model model) {
         model.addAttribute("entete_titre", "Ajouter ville");
-        model.addAttribute("placeholder_nom", "Nom*");
-        model.addAttribute("placeholder_cp", "Code Postal*");
         model.addAttribute("button_submit_text", "Ajouter ville");
         return "villes/add_edit";
     }
