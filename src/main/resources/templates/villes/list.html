@@ -15,13 +15,13 @@
                         <th>id</th>
                         <th>Nom</th>
                         <th>Code Postal</th>
-                        <th><i class="fas fa-cogs"></i></th>
+                        <th sec:authorize="hasRole('ROLE_ADMIN')"><i class="fas fa-cogs"></i></th>
                     </tr>
                     <tr th:each="ville : ${liste_villes}">
                         <td th:utext="${ville.id}"></td>
                         <td th:utext="${ville.nom}"></td>
                         <td th:utext="${ville.codePostal}"></td>
-                        <td>
+                        <td sec:authorize="hasRole('ROLE_ADMIN')">
                             <a th:href="@{'/villes/edit/' + ${ville.id}}"><i class="fas fa-edit"></i></a>
                             <a th:href="@{'/villes/delete/' + ${ville.id}}"><i class="fas fa-trash"></i></a>
                         </td>
@@ -29,7 +29,7 @@
                 </table>
 
                 <br />
-                <div class="fonctions">
+                <div class="fonctions" sec:authorize="hasRole('ROLE_ADMIN')">
                     <button><a href="/villes/add">
                             Nouvelle ville
                         </a></button>
