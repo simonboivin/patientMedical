@@ -1,7 +1,8 @@
 package fr.sboivin.springdemo.controllers;
 
 import fr.sboivin.springdemo.entities.Ville;
-import fr.sboivin.springdemo.repositories.VilleRepository;
+import fr.sboivin.springdemo.services.VillesService;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,18 +13,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/villes")
 public class VillesController {
 
-    private final VilleRepository vr;
+    private final VillesService villesService;
 
-    public VillesController(VilleRepository vr) {
-        this.vr = vr;
+    public VillesController(VillesService villesservice) {
+        this.villesService = villesservice;
     }
 
+    /**
+     * Page: Ajout d'une ville
+     */
     @GetMapping(value = "/add")
     public String addVilleGet(Model model) {
         model.addAttribute("entete_titre", "Ajouter ville");
@@ -31,77 +35,85 @@ public class VillesController {
         return "villes/add_edit";
     }
 
-
+    /**
+     * Requête POST: Ajout d'une ville
+     */
     @PostMapping(value = "/add")
     public String addVillesPost(HttpServletRequest request) {
         try {
-
-            Ville v = new Ville();
-            v.setNom(request.getParameter("nom"));
-            v.setCodePostal(Integer.parseInt(request.getParameter("cp")));
-            vr.save(v);
+            villesService.addVille(request.getParameter("nom"), request.getParameter("cp"));
         } catch (Exception e) {
-            System.out.println(e);
+            throw new ResponseStatusException(HttpStatus.NOT_MODIFIED, "Erreur lors de la création");
         }
         return "redirect:/villes/list";
     }
 
-
+    /**
+     * Page: Liste des villes
+     */
     @RequestMapping(value = "/list")
     public String listAll(Model model) {
-        List<Ville> lv = (List<Ville>) vr.findAll();
-        model.addAttribute("liste_villes", lv);
+        model.addAttribute("liste_villes", villesService.getVilleList());
         return "villes/list";
     }
 
+    /**
+     * Page: édition d'une ville
+     */
     @GetMapping(value = "/edit/{id}")
     public String editVilles(Model model, @PathVariable int id) {
-        try {
-            Ville v = vr.findById(id).orElse(null);
-            model.addAttribute("entete_titre", "Modifier Ville ID " + String.valueOf(id));
+        Optional<Ville> optionnalVille = villesService.getVillebyId(id);
+        if (optionnalVille.isPresent()) {
+            Ville v = optionnalVille.get();
+            model.addAttribute("entete_titre", "Modifier Ville ID " + id);
             model.addAttribute("value_nom", v.getNom());
             model.addAttribute("value_cp", v.getCodePostal());
             model.addAttribute("button_submit_text", "Mettre à jour");
-        } catch (Exception e) {
+            return "villes/add_edit";
+        } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La ville " + id + " n'est pas trouvée");
         }
-        return "villes/add_edit";
     }
 
+    /**
+     * Requête POST: édition d'une ville
+     */
     @PostMapping(value = "/edit/{id}")
     public String editPatientPost(HttpServletRequest request, @PathVariable int id) {
         try {
-            Ville v = vr.findById(id).orElse(null);
-            v.setNom(request.getParameter("nom"));
-            v.setCodePostal(Integer.parseInt(request.getParameter("cp")));
-            vr.save(v);
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erreur dans l'édition de la ville "+id);
+            villesService.editVille(id, request.getParameter("nom"), request.getParameter("cp"));
+            return "redirect:/villes/list";
+        } catch (ObjectNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erreur dans l'édition de la ville " + id);
         }
-        return "redirect:/villes/list";
     }
 
+    /**
+     * Page de confirmation de suppression d'une ville
+     */
     @GetMapping(value = "/delete/{id}")
     public String deleteVilleGet(Model model, @PathVariable int id) {
-        try {
-            model.addAttribute("entete_titre", "Supprimer Ville ID " + String.valueOf(id));
-            Ville v = vr.findById(id).orElse(null);
-            model.addAttribute("confirmation_text", "La ville " + v.getNom() + " sera supprimée");
+        Optional<Ville> optionalVille = villesService.getVillebyId(id);
+        if (optionalVille.isPresent()) {
+            Ville ville = optionalVille.get();
+            model.addAttribute("entete_titre", "Supprimer Ville ID " + id);
+            model.addAttribute("confirmation_text", "La ville " + ville.getNom() + " sera supprimée");
             model.addAttribute("button_submit_text", "Supprimer");
-        } catch (Exception e) {
+            return "common/delete";
+        } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La ville " + id + " n'est pas trouvée");
         }
-        return "common/delete";
     }
 
-
+    /**
+     * Requête POST: suppression d'une ville
+     */
     @PostMapping(value = "/delete/{id}")
     public String deleteVilleDelete(@PathVariable int id) {
         try {
-            Ville v = vr.findById(id).orElse(null);
-            vr.delete(v);
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erreur dans la suppression de la ville "+id);
+            villesService.deleteVillebyID(id);
+        } catch (ObjectNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erreur dans la suppression de la ville " + id);
         }
         return "redirect:/villes/list";
     }

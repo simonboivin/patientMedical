@@ -45,9 +45,7 @@ public class Ville {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
-        Ville ville = (Ville) o;
-
+       Ville ville = (Ville) o;
         if (id != ville.id) return false;
         if (codePostal != ville.codePostal) return false;
         if (nom != null ? !nom.equals(ville.nom) : ville.nom != null) return false;
