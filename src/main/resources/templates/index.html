@@ -20,7 +20,7 @@
                 <a href="/rdv/list" class="button">
                     <i class="far fa-calendar-alt"></i>Rendez-vous
                 </a>
-                <a href="/users/list" class="button">
+                <a href="/users/list" class="button" sec:authorize="hasRole('ROLE_ADMIN')">
                     <i class="far fa-user-circle"></i>Utilisateurs
                 </a>
 

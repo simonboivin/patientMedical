@@ -4,6 +4,7 @@ import fr.sboivin.springdemo.entities.User;
 import fr.sboivin.springdemo.repositories.UserRepository;
 import fr.sboivin.springdemo.security.ApplicationConfig;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
+@Secured("ROLE_ADMIN")
 @RequestMapping("/users")
 public class UtilisateursController {
 
