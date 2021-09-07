@@ -225,15 +225,20 @@ th {
     text-align: left;
 }
 
-button {
+button, .button {
     width: fit-content;
     padding: 10px 30px;
     margin-right: 25px;
     background-color: lightcyan;
     border-radius: 10px;
+    border: 1px solid black;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-#dashboard button {
+#dashboard .button {
     padding: 0px;
     width: 250px;
     height: 75px;
@@ -249,12 +254,12 @@ button {
     padding-right: 10px;
 }
 
-button a:any-link {
+.button:any-link {
     color: black;
     text-decoration: none;
 }
 
-button:hover {
+button:hover, .button:hover {
     background-color: lightblue;
 }
 
