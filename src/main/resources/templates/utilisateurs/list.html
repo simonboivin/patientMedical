@@ -10,27 +10,31 @@
         <div id="liste_utilisateurs">
             <div class="entete_fenetre"> Liste des Utilisateurs</div>
             <div class="conteneur_fenetre">
-                <table>
-                    <tr>
-                        <th>id</th>
-                        <th>Nom</th>
-                        <th>Email</th>
-                        <th>Rôle</th>
-                        <th>Photo</th>
-                        <th sec:authorize="hasRole('ROLE_ADMIN')"><i class="fas fa-cogs"></i></th>
-                    </tr>
-                    <tr th:each="Utilisateur : ${liste_utilisateurs}">
-                        <td th:utext="${Utilisateur.id}"></td>
-                        <td th:utext="${Utilisateur.name}"></td>
-                        <td th:utext="${Utilisateur.email}"></td>
-                        <td th:utext="${Utilisateur.roles}"></td>
-                        <td><a href="" th:utext="${Utilisateur.photouser}"
-                                th:href="@{'/profils/' + ${Utilisateur.photouser}}" target="popup"></a></td>
-                        <td sec:authorize="hasRole('ROLE_ADMIN')">
-                            <a th:href="@{'/users/edit/' + ${Utilisateur.id}}"><i class="fas fa-edit"></i></a>
-                            <a th:href="@{'/users/delete/' + ${Utilisateur.id}}"><i class="fas fa-trash"></i></a>
-                        </td>
-                    </tr>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Nom</th>
+                            <th>Email</th>
+                            <th>Rôle</th>
+                            <th>Photo</th>
+                            <th sec:authorize="hasRole('ROLE_ADMIN')"><i class="fas fa-cogs"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="Utilisateur : ${liste_utilisateurs}">
+                            <td th:utext="${Utilisateur.id}"></td>
+                            <td th:utext="${Utilisateur.name}"></td>
+                            <td th:utext="${Utilisateur.email}"></td>
+                            <td th:utext="${Utilisateur.roles}"></td>
+                            <td><a href="" th:utext="${Utilisateur.photouser}"
+                                    th:href="@{'/profils/' + ${Utilisateur.photouser}}" target="popup"></a></td>
+                            <td sec:authorize="hasRole('ROLE_ADMIN')">
+                                <a th:href="@{'/users/edit/' + ${Utilisateur.id}}"><i class="fas fa-edit"></i></a>
+                                <a th:href="@{'/users/delete/' + ${Utilisateur.id}}"><i class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
 
                 <br />
