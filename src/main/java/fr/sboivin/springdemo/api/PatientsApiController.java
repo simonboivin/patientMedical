@@ -36,7 +36,7 @@ public class PatientsApiController {
         }
     }
 
-    @PostMapping(path = "/edit/{id}", produces = "application/json")
+    @PutMapping(path = "/{id}", produces = "application/json")
     public Patient editPatientByIdAPI(@PathVariable("id") int id, @RequestBody Patient patient){
         Optional<Patient> patientOptional = patientsService.getPatientById(id);
         if(patientOptional.isPresent()){
@@ -51,7 +51,7 @@ public class PatientsApiController {
         return patientsService.addPatient(patient.getNom(), patient.getPrenom(), patient.getEmail(), patient.getTelephone(), patient.getVille().getId());
     }
 
-    @PostMapping(path = "/delete/{id}")
+    @DeleteMapping(path = "/{id}")
     public void deletePatientByIdAPI(@PathVariable("id") int id){
         try {
             patientsService.deletePatientById(id);
