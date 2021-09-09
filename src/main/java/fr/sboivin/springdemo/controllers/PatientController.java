@@ -52,19 +52,13 @@ public class PatientController {
     @PostMapping(value = "/add")
     public String addPatientPost(HttpServletRequest request) {
         try {
-            Patient p = new Patient();
-            p.setNom(request.getParameter("nom"));
-            p.setPrenom(request.getParameter("prenom"));
-            p.setEmail(request.getParameter("email"));
-            p.setTelephone(request.getParameter("telephone"));
-            Ville v = vr.findById(Integer.valueOf(request.getParameter("ville"))).orElse(null);
-            p.setVille(v);
-            pr.save(p);
+            patientsService.addPatient(request.getParameter("nom"), request.getParameter("prenom"), request.getParameter("email"),
+                    request.getParameter("telephone"), request.getParameter("ville"));
         } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_MODIFIED, "Erreur lors de la création");
         }
         return "redirect:/patients/list";
     }
-
 
 
     @GetMapping(value = "/edit/{id}")

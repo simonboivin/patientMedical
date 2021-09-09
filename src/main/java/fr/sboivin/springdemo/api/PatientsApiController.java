@@ -18,6 +18,7 @@ public class PatientsApiController {
         this.patientsService = patientsService;
     }
 
+
     @GetMapping(path = "", produces = "application/json")
     public List<Patient> getPatientsList() {
         return patientsService.getPatientsList();
