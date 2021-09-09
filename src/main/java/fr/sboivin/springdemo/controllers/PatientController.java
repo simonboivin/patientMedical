@@ -3,7 +3,6 @@ package fr.sboivin.springdemo.controllers;
 import fr.sboivin.springdemo.entities.Patient;
 import fr.sboivin.springdemo.entities.Ville;
 import fr.sboivin.springdemo.repositories.PatientRepository;
-import fr.sboivin.springdemo.repositories.VilleRepository;
 import fr.sboivin.springdemo.services.PatientsService;
 import fr.sboivin.springdemo.services.VillesService;
 import org.springframework.http.HttpStatus;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -25,13 +23,11 @@ import java.util.Optional;
 public class PatientController {
 
     private final PatientRepository pr;
-    private final VilleRepository vr;
     private final PatientsService patientsService;
     private final VillesService villesService;
 
-    public PatientController(PatientRepository pr, VilleRepository vr, PatientsService patientsService, VillesService villesService) {
+    public PatientController(PatientRepository pr, PatientsService patientsService, VillesService villesService) {
         this.pr = pr;
-        this.vr = vr;
         this.patientsService = patientsService;
         this.villesService = villesService;
     }
@@ -45,9 +41,8 @@ public class PatientController {
     @GetMapping(value = "/add")
     public String addPatientGet(Model model) {
         model.addAttribute("entete_titre", "Ajouter patient");
-        List<Ville> lv = (List<Ville>) vr.findAll();
-        model.addAttribute("liste_villes", lv);
-        Ville villeDefaut = vr.findById(1).orElse(null);
+        model.addAttribute("liste_villes", villesService.getVilleList());
+        Ville villeDefaut = villesService.getVillebyId(1).orElse(null);
         model.addAttribute("ville_select", villeDefaut);
         model.addAttribute("button_submit_text", "Ajouter patient");
         return "patients/add_edit";
@@ -69,7 +64,7 @@ public class PatientController {
     public String editPatient(Model model, @PathVariable int id) {
 
         Optional<Patient> patientOptional = patientsService.getPatientById(id);
-        if(patientOptional.isPresent()) {
+        if (patientOptional.isPresent()) {
             Patient p = patientOptional.get();
             model.addAttribute("entete_titre", "Modifier patient ID " + String.valueOf(id));
             model.addAttribute("value_nom", p.getNom());
@@ -87,19 +82,23 @@ public class PatientController {
 
     @PostMapping(value = "/edit/{id}")
     public String editPatientPost(HttpServletRequest request, @PathVariable int id) {
-        try {
-            Patient p = pr.findById(id).orElse(null);
+        Optional<Patient> patientOptional = patientsService.getPatientById(id);
+        if (patientOptional.isPresent()) {
+            Patient p = patientOptional.get();
             p.setNom(request.getParameter("nom"));
             p.setPrenom(request.getParameter("prenom"));
             p.setEmail(request.getParameter("email"));
             p.setTelephone(request.getParameter("telephone"));
-            Ville v = vr.findById(Integer.valueOf(request.getParameter("ville"))).orElse(null);
-            p.setVille(v);
+            Optional<Ville> villeOptional = villesService.getVillebyId(Integer.valueOf(request.getParameter("ville")));
+            if (villeOptional.isPresent()) {
+                p.setVille(villeOptional.get());
+            }
             pr.save(p);
-        } catch (Exception e) {
+            return "redirect:/patients/list";
+        } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erreur dans l'édition du patient " + id);
         }
-        return "redirect:/patients/list";
+
     }
 
     @GetMapping(value = "/delete/{id}")
