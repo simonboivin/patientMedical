@@ -66,9 +66,19 @@ main {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-#formulaire, #login, #liste_patients, #dashboard, #liste_utilisateurs, #erreur {
+#formulaire, #login, #liste_utilisateurs, #erreur {
     display: flex;
     width: 1000px;
+    flex-direction: column;
+    justify-content: center;
+    border: solid 1px gray;
+    border-radius: 1px;
+    background-color: white;
+}
+
+#liste_patients, #dashboard {
+    display: flex;
+    padding: 0;
     flex-direction: column;
     justify-content: center;
     border: solid 1px gray;
@@ -207,43 +217,6 @@ main {
     align-items: center;
     justify-content: space-around;
     flex-wrap: nowrap;
-    height: 150px;
-}
-
-table {
-    padding: 15px;
-    border-collapse: collapse;
-}
-
-th, td {
-    border: 1px solid lightsteelblue;
-    padding: 5px;
-}
-
-th {
-    padding-bottom: 10px;
-    text-align: left;
-}
-
-button, .button {
-    width: fit-content;
-    padding: 10px 30px;
-    margin-right: 25px;
-    background-color: lightcyan;
-    border-radius: 10px;
-    border: 1px solid black;
-    color: black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#dashboard .button {
-    padding: 0px;
-    width: 250px;
-    height: 75px;
-    margin: 25px 50px;
-    font-size: larger;
 }
 
 #dashboard .conteneur_fenetre {
@@ -252,15 +225,6 @@ button, .button {
 
 #dashboard i {
     padding-right: 10px;
-}
-
-.button:any-link {
-    color: black;
-    text-decoration: none;
-}
-
-button:hover, .button:hover {
-    background-color: lightblue;
 }
 
 .fonctions {

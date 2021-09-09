@@ -8,24 +8,24 @@
     <header th:include="~{ header :: #header }"></header>
 
     <main>
-        <div id="dashboard">
+        <div id="dashboard" class="container">
             <div class="entete_fenetre">Menu</div>
             <div class="conteneur_fenetre">
-                <a href="/patients/list" class="button">
+                <a href="/patients/list" class="btn btn-primary">
                     <i class="fas fa-user-injured"></i>Patients
                 </a>
-                <a href="/villes/list" class="button">
+                <a href="/villes/list" class="btn btn-primary">
                     <i class="fas fa-city"></i>Villes
                 </a>
-                <a href="/rdv/list" class="button">
+                <a href="/rdv/list" class="btn btn-primary">
                     <i class="far fa-calendar-alt"></i>Rendez-vous
                 </a>
-                <a href="/users/list" class="button" sec:authorize="hasRole('ROLE_ADMIN')">
+                <a href="/users/list" class="btn btn-primary" sec:authorize="hasRole('ROLE_ADMIN')">
                     <i class="far fa-user-circle"></i>Utilisateurs
                 </a>
 
 
-                <a href="/logout" class="button">
+                <a href="/logout" class="btn btn-primary">
                     <i class="fas fa-sign-out-alt"></i>Déconnexion
                 </a>
 
