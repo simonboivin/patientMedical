@@ -8,35 +8,39 @@
     <header th:include="~{ header :: #header }"></header>
 
     <main>
-        <div id="liste_patients">
+        <div id="liste_patients" class="container">
             <div class="entete_fenetre"> Liste des Patients</div>
             <div class="conteneur_fenetre">
-                <table>
-                    <tr>
-                        <th>id</th>
-                        <th>Nom</th>
-                        <th>Prénom</th>
-                        <th>Mail</th>
-                        <th>Téléphone</th>
-                        <th>Ville</th>
-                        <th sec:authorize="hasRole('ROLE_ADMIN')"><i class="fas fa-cogs"></i></th>
-                    </tr>
-                    <tr th:each="patient : ${liste_patient}">
-                        <td th:utext="${patient.id}"></td>
-                        <td th:utext="${patient.nom}"></td>
-                        <td th:utext="${patient.prenom}"></td>
-                        <td th:utext="${patient.email}"></td>
-                        <td th:utext="${patient.telephone}"></td>
-                        <td th:utext="${patient.ville?.nom}"></td>
-                        <td sec:authorize="hasRole('ROLE_ADMIN')">
-                            <a th:href="@{'/patients/edit/' + ${patient.id}}"><i class="fas fa-edit"></i></a>
-                            <a th:href="@{'/patients/delete/' + ${patient.id}}"><i class="fas fa-trash"></i></a>
-                        </td>
-                    </tr>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Mail</th>
+                            <th>Téléphone</th>
+                            <th>Ville</th>
+                            <th sec:authorize="hasRole('ROLE_ADMIN')"><i class="fas fa-cogs"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="patient : ${liste_patient}">
+                            <td th:utext="${patient.id}"></td>
+                            <td th:utext="${patient.nom}"></td>
+                            <td th:utext="${patient.prenom}"></td>
+                            <td th:utext="${patient.email}"></td>
+                            <td th:utext="${patient.telephone}"></td>
+                            <td th:utext="${patient.ville?.nom}"></td>
+                            <td sec:authorize="hasRole('ROLE_ADMIN')">
+                                <a th:href="@{'/patients/edit/' + ${patient.id}}"><i class="fas fa-edit"></i></a>
+                                <a th:href="@{'/patients/delete/' + ${patient.id}}"><i class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
                 <br />
                 <div sec:authorize="hasRole('ROLE_ADMIN')" class="fonctions">
-                    <a href="/patients/add" class="button">
+                    <a href="/patients/add" class="btn btn-outline-primary">
                         Nouveau patient
                     </a>
 
