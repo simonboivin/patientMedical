@@ -4,6 +4,7 @@ import fr.sboivin.springdemo.entities.Patient;
 import fr.sboivin.springdemo.entities.Ville;
 import fr.sboivin.springdemo.repositories.PatientRepository;
 import fr.sboivin.springdemo.repositories.VilleRepository;
+import fr.sboivin.springdemo.services.PatientsService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,12 +24,19 @@ public class PatientController {
 
     private final PatientRepository pr;
     private final VilleRepository vr;
+    private final PatientsService patientsService;
 
-    public PatientController(PatientRepository pr, VilleRepository vr) {
+    public PatientController(PatientRepository pr, VilleRepository vr, PatientsService patientsService) {
         this.pr = pr;
         this.vr = vr;
+        this.patientsService = patientsService;
     }
 
+    @RequestMapping(value = "/list")
+    public String listAll(Model model) {
+        model.addAttribute("liste_patient", patientsService.getPatientsList());
+        return "patients/list";
+    }
 
     @GetMapping(value = "/add")
     public String addPatientGet(Model model) {
@@ -44,26 +52,14 @@ public class PatientController {
     @PostMapping(value = "/add")
     public String addPatientPost(HttpServletRequest request) {
         try {
-            Patient p = new Patient();
-            p.setNom(request.getParameter("nom"));
-            p.setPrenom(request.getParameter("prenom"));
-            p.setEmail(request.getParameter("email"));
-            p.setTelephone(request.getParameter("telephone"));
-            Ville v = vr.findById(Integer.valueOf(request.getParameter("ville"))).orElse(null);
-            p.setVille(v);
-            pr.save(p);
+            patientsService.addPatient(request.getParameter("nom"), request.getParameter("prenom"), request.getParameter("email"),
+                    request.getParameter("telephone"), Integer.valueOf(request.getParameter("ville")));
         } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_MODIFIED, "Erreur lors de la création");
         }
         return "redirect:/patients/list";
     }
 
-
-    @RequestMapping(value = "/list")
-    public String listAll(Model model) {
-        List<Patient> lp = (List<Patient>) pr.findAll();
-        model.addAttribute("liste_patient", lp);
-        return "patients/list";
-    }
 
     @GetMapping(value = "/edit/{id}")
     public String editPatient(Model model, @PathVariable int id) {
