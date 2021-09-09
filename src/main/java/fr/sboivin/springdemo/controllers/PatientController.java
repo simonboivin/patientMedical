@@ -53,7 +53,7 @@ public class PatientController {
     public String addPatientPost(HttpServletRequest request) {
         try {
             patientsService.addPatient(request.getParameter("nom"), request.getParameter("prenom"), request.getParameter("email"),
-                    request.getParameter("telephone"), request.getParameter("ville"));
+                    request.getParameter("telephone"), Integer.valueOf(request.getParameter("ville")));
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_MODIFIED, "Erreur lors de la création");
         }

@@ -37,17 +37,18 @@ public class PatientsService {
      * @param villeID
      */
     @Transactional
-    public void addPatient(String nom, String prenom, String email, String telephone, String villeID) {
+    public Patient addPatient(String nom, String prenom, String email, String telephone, int villeID) {
         Patient patient = new Patient();
         patient.setNom(nom);
         patient.setPrenom(prenom);
         patient.setEmail(email);
         patient.setTelephone(telephone);
-        Optional<Ville> villeOptional = villesService.getVillebyId(Integer.valueOf(villeID));
+        Optional<Ville> villeOptional = villesService.getVillebyId(villeID);
         if (villeOptional.isPresent()) {
             patient.setVille(villeOptional.get());
         }
         patientRepository.save(patient);
+        return patient;
     }
 
 }
