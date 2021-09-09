@@ -4,6 +4,7 @@ import fr.sboivin.springdemo.entities.Patient;
 import fr.sboivin.springdemo.entities.Ville;
 import fr.sboivin.springdemo.repositories.PatientRepository;
 import fr.sboivin.springdemo.repositories.VilleRepository;
+import fr.sboivin.springdemo.services.PatientsService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,12 +24,19 @@ public class PatientController {
 
     private final PatientRepository pr;
     private final VilleRepository vr;
+    private final PatientsService patientsService;
 
-    public PatientController(PatientRepository pr, VilleRepository vr) {
+    public PatientController(PatientRepository pr, VilleRepository vr, PatientsService patientsService) {
         this.pr = pr;
         this.vr = vr;
+        this.patientsService = patientsService;
     }
 
+    @RequestMapping(value = "/list")
+    public String listAll(Model model) {
+        model.addAttribute("liste_patient", patientsService.getPatientsList());
+        return "patients/list";
+    }
 
     @GetMapping(value = "/add")
     public String addPatientGet(Model model) {
@@ -58,12 +66,6 @@ public class PatientController {
     }
 
 
-    @RequestMapping(value = "/list")
-    public String listAll(Model model) {
-        List<Patient> lp = (List<Patient>) pr.findAll();
-        model.addAttribute("liste_patient", lp);
-        return "patients/list";
-    }
 
     @GetMapping(value = "/edit/{id}")
     public String editPatient(Model model, @PathVariable int id) {
