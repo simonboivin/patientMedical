@@ -5,6 +5,7 @@ import fr.sboivin.springdemo.entities.Ville;
 import fr.sboivin.springdemo.repositories.PatientRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.event.TransactionalEventListener;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +28,17 @@ public class PatientsService {
     public List<Patient> getPatientsList() {
         return (List<Patient>) patientRepository.findAll();
     }
+
+    /**
+     * Retourne un patient identifié par son ID
+     * @param id ID du patient
+     * @return Patient
+     */
+    @Transactional
+    public Optional<Patient> getPatientById(int id){
+       return patientRepository.findById(id);
+    }
+
 
     /**
      * Ajoute un patient à la base

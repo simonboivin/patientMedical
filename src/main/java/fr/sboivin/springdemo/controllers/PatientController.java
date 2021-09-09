@@ -5,6 +5,7 @@ import fr.sboivin.springdemo.entities.Ville;
 import fr.sboivin.springdemo.repositories.PatientRepository;
 import fr.sboivin.springdemo.repositories.VilleRepository;
 import fr.sboivin.springdemo.services.PatientsService;
+import fr.sboivin.springdemo.services.VillesService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -25,11 +27,13 @@ public class PatientController {
     private final PatientRepository pr;
     private final VilleRepository vr;
     private final PatientsService patientsService;
+    private final VillesService villesService;
 
-    public PatientController(PatientRepository pr, VilleRepository vr, PatientsService patientsService) {
+    public PatientController(PatientRepository pr, VilleRepository vr, PatientsService patientsService, VillesService villesService) {
         this.pr = pr;
         this.vr = vr;
         this.patientsService = patientsService;
+        this.villesService = villesService;
     }
 
     @RequestMapping(value = "/list")
@@ -63,22 +67,22 @@ public class PatientController {
 
     @GetMapping(value = "/edit/{id}")
     public String editPatient(Model model, @PathVariable int id) {
-        try {
-            Patient p = pr.findById(id).orElse(null);
+
+        Optional<Patient> patientOptional = patientsService.getPatientById(id);
+        if(patientOptional.isPresent()) {
+            Patient p = patientOptional.get();
             model.addAttribute("entete_titre", "Modifier patient ID " + String.valueOf(id));
             model.addAttribute("value_nom", p.getNom());
             model.addAttribute("value_prenom", p.getPrenom());
             model.addAttribute("value_mail", p.getEmail());
             model.addAttribute("value_telephone", p.getTelephone());
-            List<Ville> lv = (List<Ville>) vr.findAll();
-            model.addAttribute("liste_villes", lv);
+            model.addAttribute("liste_villes", villesService.getVilleList());
             model.addAttribute("ville_select", p.getVille());
             model.addAttribute("button_submit_text", "Mettre à jour");
-
-        } catch (Exception e) {
+            return "patients/add_edit";
+        } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Le patient " + id + " n'est pas trouvé");
         }
-        return "patients/add_edit";
     }
 
     @PostMapping(value = "/edit/{id}")
