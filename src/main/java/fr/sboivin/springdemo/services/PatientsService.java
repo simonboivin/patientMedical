@@ -81,6 +81,10 @@ public class PatientsService {
         }
     }
 
+    /**
+     * Supprime un patient identifié par son id
+     */
+    @Transactional
     public void deletePatientById(int id) {
         Optional<Patient> patientOptional = getPatientById(id);
         if (patientOptional.isPresent()) {

@@ -2,7 +2,6 @@ package fr.sboivin.springdemo.controllers;
 
 import fr.sboivin.springdemo.entities.Patient;
 import fr.sboivin.springdemo.entities.Ville;
-import fr.sboivin.springdemo.repositories.PatientRepository;
 import fr.sboivin.springdemo.services.PatientsService;
 import fr.sboivin.springdemo.services.VillesService;
 import org.hibernate.ObjectNotFoundException;
@@ -23,12 +22,10 @@ import java.util.Optional;
 @RequestMapping("/patients")
 public class PatientController {
 
-    private final PatientRepository pr;
     private final PatientsService patientsService;
     private final VillesService villesService;
 
-    public PatientController(PatientRepository pr, PatientsService patientsService, VillesService villesService) {
-        this.pr = pr;
+    public PatientController(PatientsService patientsService, VillesService villesService) {
         this.patientsService = patientsService;
         this.villesService = villesService;
     }
@@ -67,7 +64,7 @@ public class PatientController {
         Optional<Patient> patientOptional = patientsService.getPatientById(id);
         if (patientOptional.isPresent()) {
             Patient p = patientOptional.get();
-            model.addAttribute("entete_titre", "Modifier patient ID " + String.valueOf(id));
+            model.addAttribute("entete_titre", "Modifier patient ID " + id);
             model.addAttribute("value_nom", p.getNom());
             model.addAttribute("value_prenom", p.getPrenom());
             model.addAttribute("value_mail", p.getEmail());
