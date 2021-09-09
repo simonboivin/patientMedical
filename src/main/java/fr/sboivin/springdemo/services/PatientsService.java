@@ -42,33 +42,18 @@ public class PatientsService {
 
     /**
      * Set les différents attributs pour un objet patient
-     * @param patient Patient à configurer
-     * @param nom
-     * @param prenom
-     * @param email
-     * @param telephone
-     * @param villeID
-     * @return
      */
-    private void configurePatient(Patient patient, String nom, String prenom, String email, String telephone, int villeID){
+    private void configurePatient(Patient patient, String nom, String prenom, String email, String telephone, int villeID) {
         patient.setNom(nom);
         patient.setPrenom(prenom);
         patient.setEmail(email);
         patient.setTelephone(telephone);
         Optional<Ville> villeOptional = villesService.getVillebyId(villeID);
-        if (villeOptional.isPresent()) {
-            patient.setVille(villeOptional.get());
-        }
+        villeOptional.ifPresent(patient::setVille);
     }
 
     /**
      * Ajoute un patient à la base
-     *
-     * @param nom
-     * @param prenom
-     * @param email
-     * @param telephone
-     * @param villeID
      */
     @Transactional
     public Patient addPatient(String nom, String prenom, String email, String telephone, int villeID) {
@@ -81,12 +66,6 @@ public class PatientsService {
     /**
      * *Edite un patient dans la base
      *
-     * @param id
-     * @param nom
-     * @param prenom
-     * @param email
-     * @param telephone
-     * @param villeID
      * @return patient édité
      */
     @Transactional
@@ -98,7 +77,16 @@ public class PatientsService {
             patientRepository.save(patient);
             return patient;
         } else {
-            throw new ObjectNotFoundException(id, "Ville non trouvée");
+            throw new ObjectNotFoundException(id, "Patient non trouvé");
+        }
+    }
+
+    public void deletePatientById(int id) {
+        Optional<Patient> patientOptional = getPatientById(id);
+        if (patientOptional.isPresent()) {
+            patientRepository.delete(patientOptional.get());
+        } else {
+            throw new ObjectNotFoundException(id, "Patient non trouvé");
         }
     }
 
