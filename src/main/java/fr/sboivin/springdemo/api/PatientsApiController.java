@@ -36,6 +36,15 @@ public class PatientsApiController {
         }
     }
 
+    @PostMapping(path = "/edit/{id}", produces = "application/json")
+    public Patient editPatientByIdAPI(@PathVariable("id") int id, @RequestBody Patient patient){
+        Optional<Patient> patientOptional = patientsService.getPatientById(id);
+        if(patientOptional.isPresent()){
+            return patientsService.editPatient(id, patient.getNom(), patient.getPrenom(), patient.getEmail(), patient.getTelephone(), patient.getVille().getId());
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Le patient " + id + " n'est pas trouvé");
+        }
+    }
 
     @PostMapping(path = "", produces = "application/json")
     public Patient addPatientAPI(@RequestBody Patient patient) {
