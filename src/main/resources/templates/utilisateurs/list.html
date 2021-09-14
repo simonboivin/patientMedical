@@ -39,14 +39,35 @@
 
                 <br />
                 <div class="fonctions" sec:authorize="hasRole('ROLE_ADMIN')">
-                    <a href="/users/add" class="btn btn-outline-primary">
-                        Nouvel Utilisateur
-                    </a>
 
+                    <button data-bs-toggle="modal" data-bs-target="#adduserModal"
+                        class="btn btn-success float-end">Nouvel Utilisateur</button>
                 </div>
             </div>
         </div>
     </main>
+
+    <!-- Modal -->
+    <div class="modal fade" id="adduserModal" tabindex="-1" aria-labelledby="addUserModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <form name="patientAddForm" method="POST" action="/users/add">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ajouter un utilisateur</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div th:include="~{ utilisateurs/add_edit :: #users_input }"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-secondary">Valider</button>
+                        <button type="reset" class="btn btn-danger float-end">Reset</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <footer th:include="~{ footer :: #footer }"></footer>
 </body>
 

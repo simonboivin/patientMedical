@@ -11,37 +11,39 @@
             <div class="entete_fenetre" th:text="${entete_titre}"></div>
             <form name="patientForm" method="POST">
 
+                <div id="patients_input">
+                    <div class="input-group flex-nowrap mb-3">
+                        <span class="input-group-text" id="addon-wrapping"><i class="fas fa-user-edit pe-2"></i>Prénom
+                            et
+                            Nom</span>
+                        <input type="text" class="form-control" name="prenom" placeholder="Prénom"
+                            th:value="${value_prenom}" required>
+                        <input type="text" class="form-control" name="nom" placeholder="Nom" th:value="${value_nom}"
+                            required>
+                    </div>
 
-                <div class="input-group flex-nowrap mb-3">
-                    <span class="input-group-text" id="addon-wrapping"><i class="fas fa-user-edit pe-2"></i>Prénom et
-                        Nom</span>
-                    <input type="text" class="form-control" name="prenom" placeholder="Prénom"
-                        th:value="${value_prenom}" required>
-                    <input type="text" class="form-control" name="nom" placeholder="Nom" th:value="${value_nom}"
-                        required>
-                </div>
-
-                <div class="input-group flex-nowrap mb-3">
-                    <span class="input-group-text" id="addon-wrapping"><i class="fas fa-at pe-2"></i>Email</span>
-                    <input type="email" class="form-control" name="email" id="email" placeholder="Email"
-                        th:value="${value_mail}" required>
-                </div>
-
-
-                <div class="input-group flex-nowrap mb-3">
-                    <span class="input-group-text" id="addon-wrapping"><i
-                            class="fas fa-phone-alt pe-2"></i>Téléphone</span>
-                    <input type="tel" class="form-control" name="telephone" id="" placeholder="Téléphone"
-                        th:value="${value_telephone}" required>
-                </div>
+                    <div class="input-group flex-nowrap mb-3">
+                        <span class="input-group-text" id="addon-wrapping"><i class="fas fa-at pe-2"></i>Email</span>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Email"
+                            th:value="${value_mail}" required>
+                    </div>
 
 
-                <div class="input-group flex-nowrap mb-3">
-                    <span class="input-group-text" id="addon-wrapping"><i class="fas fa-city pe-2"></i>Ville</span>
-                    <select class="form-select" aria-label="Default select example" name="ville" id="ville">
-                        <option th:each="ville : ${liste_villes}" th:value="${ville.id}" th:utext="${ville.nom}"
-                            th:selected="${ville.id==ville_select.id}"></option>
-                    </select>
+                    <div class="input-group flex-nowrap mb-3">
+                        <span class="input-group-text" id="addon-wrapping"><i
+                                class="fas fa-phone-alt pe-2"></i>Téléphone</span>
+                        <input type="tel" class="form-control" name="telephone" id="" placeholder="Téléphone"
+                            th:value="${value_telephone}" required>
+                    </div>
+
+
+                    <div class="input-group flex-nowrap mb-3">
+                        <span class="input-group-text" id="addon-wrapping"><i class="fas fa-city pe-2"></i>Ville</span>
+                        <select class="form-select" aria-label="Default select example" name="ville" id="ville">
+                            <option th:each="ville : ${liste_villes}" th:value="${ville.id}" th:utext="${ville.nom}"
+                                th:selected="${ville.id==ville_select.id}"></option>
+                        </select>
+                    </div>
                 </div>
                 <button class="btn btn-primary" th:text="${button_submit_text}"></button>
             </form>

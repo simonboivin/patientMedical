@@ -34,6 +34,9 @@ public class UtilisateursController {
     public String listAll(Model model) {
         List<User> lu = (List<User>) ur.findAll();
         model.addAttribute("liste_utilisateurs", lu);
+        model.addAttribute("value_photouser", "user.png");
+        model.addAttribute("as_admin", false);
+        model.addAttribute("is_edit", false);
         return "utilisateurs/list";
     }
 
