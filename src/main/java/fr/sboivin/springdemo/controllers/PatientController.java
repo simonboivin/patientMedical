@@ -33,6 +33,9 @@ public class PatientController {
     @RequestMapping(value = "/list")
     public String listAll(Model model) {
         model.addAttribute("liste_patient", patientsService.getPatientsList());
+        model.addAttribute("liste_villes", villesService.getVilleList());
+        Ville villeDefaut = villesService.getVillebyId(1).orElse(null);
+        model.addAttribute("ville_select", villeDefaut);
         return "patients/list";
     }
 
