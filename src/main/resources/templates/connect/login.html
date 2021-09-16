@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:include="~{ head :: #head }"></head>
 
 <body>
-    <header th:include="~{ header :: #header }"></header>
+
 
     <body>
         <main>
             <div id="login">
                 <div class="entete_fenetre">Connexion</div>
                 <form name="login_form" action="" method="post" id="login_form">
-
+                    <div class="alert alert-danger" role="alert" th:if="${param.error}">
+                        A simple danger alert—check it out!
+                    </div>
                     <div class="form-floating mt-3 mb-3">
                         <input type="email" class="form-control" id="floatingInput" name="username">
                         <label for="floatingInput">Adresse email</label>
@@ -25,7 +27,7 @@
                 </form>
             </div>
         </main>
-        <footer th:include="~{ footer :: #footer }"></footer>
+
 
     </body>
 

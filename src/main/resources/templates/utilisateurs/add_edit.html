@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:include="~{ head :: #head }"></head>
 
@@ -15,11 +15,11 @@
 
                         <div class="icon_champ">
                             <span class="icone"><i class="fas fa-user-edit"></i>Nom</span>
-                            <input type="text" name="nom" placeholder="Nom" th:value="${value_nom}" required>
+                            <input type="text" name="nom" placeholder="Nom" th:value="${u?.name}" required>
                         </div>
                         <div class="icon_champ">
                             <span class="icone"><i class="fas fa-portrait"></i></i>Photo</span>
-                            <input type="text" name="photouser" id="photouser" th:value="${value_photouser}">
+                            <input type="text" name="photouser" id="photouser" th:value="${u?.photouser}">
                         </div>
 
 
@@ -27,7 +27,7 @@
                     <div class="form_block">
                         <div class="icon_champ">
                             <span class="icone"><i class="fas fa-at"></i>Email</span>
-                            <input type="email" name="email" id="email" placeholder="Email" th:value="${value_mail}"
+                            <input type="email" name="email" id="email" placeholder="Email" th:value="${u?.email}"
                                 required>
                         </div>
                         <div class="icon_champ">
@@ -37,6 +37,9 @@
                         </div>
 
                     </div>
+                </div>
+
+                <div id="users_role">
                     <div class="form_block">
                         <div class="icon_champ">
                             <span class="icone"><i class="fas fa-crown"></i>Rôle</span>

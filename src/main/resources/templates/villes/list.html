@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:include="~{ head :: #head }"></head>
 
@@ -34,14 +34,34 @@
 
                 <br />
                 <div class="fonctions" sec:authorize="hasRole('ROLE_ADMIN')">
-                    <a href="/villes/add" class="btn btn-outline-primary">
-                        Nouvelle ville
-                    </a>
-
+                    <button data-bs-toggle="modal" data-bs-target="#addVilleModal" class="btn btn-success float-end">
+                        Nouvelle ville</button>
                 </div>
             </div>
         </div>
     </main>
+
+    <!-- Modal -->
+    <div class="modal fade" id="addVilleModal" tabindex="-1" aria-labelledby="addVilleModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <form name="patientAddForm" method="POST" action="/villes/add">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ajouter une ville</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div th:include="~{ villes/add_edit :: #villes_input }"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-secondary">Valider</button>
+                        <button type="reset" class="btn btn-danger float-end">Reset</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <footer th:include="~{ footer :: #footer }"></footer>
 </body>
 

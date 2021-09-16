@@ -72,13 +72,10 @@ public class UtilisateursController {
         try {
             User u = ur.findById(id).orElse(null);
             model.addAttribute("entete_titre", "Modifier Utilisateur ID " + String.valueOf(id));
-            model.addAttribute("value_nom", u.getName());
-            model.addAttribute("value_mail", u.getEmail());
-            model.addAttribute("value_photouser", u.getPhotouser());
+            model.addAttribute("u", u);
             model.addAttribute("as_admin", u.getRoles().equals("ROLE_ADMIN"));
             model.addAttribute("is_edit", true);
             model.addAttribute("button_submit_text", "Mettre à jour");
-
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Le patient " + id + " n'est pas trouvé");
         }
@@ -129,5 +126,24 @@ public class UtilisateursController {
         return "redirect:/users/list";
     }
 
+    @PostMapping( value = "/profil/{id}" )
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
+    public String profilePost( HttpServletRequest request , @PathVariable int id , Model model ){
+        try {
+            User u = ur.findById(id).orElse(null);
+            u.setName(request.getParameter("nom"));
+            u.setEmail(request.getParameter("email"));
+            if (request.getParameter("password") != null && request.getParameter("password").length() > 2 ) {
+                System.out.println( "Changemet password" + request.getParameter("password") );
+                u.setPassword(applicationConfig.passwordEncoder().encode(request.getParameter("password")));
+            }
 
+            u.setPhotouser(request.getParameter("photouser"));
+            //u.setRoles(request.getParameter("roles")); // La gestion de profil ne donne pas la possibilité de changer de type d'utilisateur
+            ur.save(u);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erreur dans l'édition du patient " + id);
+        }
+        return "redirect:/";
+    }
 }
