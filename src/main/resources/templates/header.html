@@ -3,5 +3,20 @@
     <div class="bulle_utilisateur">
         <div th:text="${bonjour}"></div>
         <img class="image_profils" th:src="${avatar}" alt="photo_profil">
+        <div class="float-end">
+            <div class="dropdown dropstart">
+                <button class="border-0 dropdown-toggle" type="button" id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#profileModal"
+                            th:href="@{'/user/profile/edit/' + ${#authentication.getPrincipal().getUser().getId()}}">Gérer
+                            mon profil</a></li>
+                    <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                </ul>
+            </div>
+
+        </div>
     </div>
 </header>
