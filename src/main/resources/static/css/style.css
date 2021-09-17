@@ -246,3 +246,7 @@ footer a:any-link {
 footer i {
     padding-right: 10px;
 }
+
+.input-group-text i {
+    padding-right: 10px;
+}
