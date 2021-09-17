@@ -13,7 +13,3 @@ function aleaBetween(min, max) {
 }
 
 
-function generatePassword() {
-    let passwordInput = document.getElementById("password_input");
-    passwordInput.value = charAlea();
-}
