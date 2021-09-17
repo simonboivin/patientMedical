@@ -4,6 +4,8 @@ const emailInput = document.getElementById("email_input");
 const passwordInput = document.getElementById("password_input");
 const photouserInput = document.getElementById("photouser_input");
 const progress = document.getElementById("progress");
+const addUserForm = document.getElementById("addUserform");
+const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
 var progressStatut = 0;
 var nomInputNotProgressed = true;
 var emailInputNotProgressed = true;
@@ -54,6 +56,23 @@ function photouserOnBlur() {
     }
 }
 
+function verifyForm() {
+
+    let chiffres = /[0-9]/g;
+    let lettres = /[A-Z]/g;
+    if (passwordInput.value.match(chiffres) & passwordInput.value.match(chiffres)) {
+        return true;
+    } else {
+        alert('Votre mot de passe doit contenir au moins une majuscule et un chiffre.');
+        return false;
+    }
+}
+
+function alert(message) {
+    let wrapper = document.createElement('div')
+    wrapper.innerHTML = '<div class="alert alert-danger" role="alert">' + message + '</div>'
+    alertPlaceholder.append(wrapper)
+}
 
 
 
@@ -61,3 +80,6 @@ nomInput.onblur = nomInputOnBlur;
 emailInput.onblur = emailInputOnBlur;
 passwordInput.onblur = passwordInputOnBlur;
 photouserInput.onblur = photouserOnBlur;
+
+
+addUserForm.onsubmit = verifyForm;
