@@ -58,10 +58,13 @@ public class UtilisateursController {
             u.setName(request.getParameter("nom"));
             u.setEmail(request.getParameter("email"));
             u.setPassword(applicationConfig.encodePassword(request.getParameter("password")));
-            u.setPhotouser(request.getParameter("photouser"));
+            String photoUser = request.getParameter("photouser");
+            if (photoUser.isEmpty()) photoUser = "user.png";
+            u.setPhotouser(photoUser);
             u.setRoles(request.getParameter("roles"));
             ur.save(u);
-        } catch (Exception e) {
+        } catch (
+                Exception e) {
         }
         return "redirect:/users/list";
     }
@@ -121,20 +124,20 @@ public class UtilisateursController {
             ur.delete(u);
 
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erreur pendant la suppression de l'utilisateur "+id);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erreur pendant la suppression de l'utilisateur " + id);
         }
         return "redirect:/users/list";
     }
 
-    @PostMapping( value = "/profil/{id}" )
+    @PostMapping(value = "/profil/{id}")
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
-    public String profilePost( HttpServletRequest request , @PathVariable int id , Model model ){
+    public String profilePost(HttpServletRequest request, @PathVariable int id, Model model) {
         try {
             User u = ur.findById(id).orElse(null);
             u.setName(request.getParameter("nom"));
             u.setEmail(request.getParameter("email"));
-            if (request.getParameter("password") != null && request.getParameter("password").length() > 2 ) {
-                System.out.println( "Changemet password" + request.getParameter("password") );
+            if (request.getParameter("password") != null && request.getParameter("password").length() > 2) {
+                System.out.println("Changemet password" + request.getParameter("password"));
                 u.setPassword(applicationConfig.passwordEncoder().encode(request.getParameter("password")));
             }
 
