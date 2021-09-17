@@ -23,7 +23,7 @@ body {
 header {
     display: flex;
     width: 100%;
-    height: 60px;
+    height: 70px;
     background: linear-gradient(rgb(80, 80, 80), black);
     box-shadow: 0px 10px 15px lightblue;
     align-items: center;
@@ -39,8 +39,11 @@ footer {
     background: linear-gradient(rgb(80, 80, 80), black);
     align-items: center;
     justify-content: space-between;
-    color: white;
     align-self: flex-end;
+}
+
+.text_footer {
+    color: white;
 }
 
 footer div {
@@ -48,8 +51,11 @@ footer div {
 }
 
 .header_logo {
+    display: flex;
     font-family: "Baskerville Old Face", serif;
     padding-left: 150px;
+    align-items: center;
+    flex-direction: row;
 }
 
 .bulle_utilisateur {

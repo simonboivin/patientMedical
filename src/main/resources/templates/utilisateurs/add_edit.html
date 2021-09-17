@@ -24,13 +24,18 @@
                             placeholder="Username">
                     </div>
                     <div class="input-group mb-3">
+                        <div class="input-group-text"><i class="fas fa-portrait"></i></i>Photo</div>
+                        <input type="text" class="form-control" name="photouser" id="photouser_input"
+                            th:value="${u?.photouser}" autocomplete="off">
+                    </div>
+                    <div class="input-group mb-3">
                         <div class="input-group-text"><i class="fas fa-at"></i>Email</div>
                         <input type="email" class="form-control" name="email" id="email_input" placeholder="Email"
                             th:value="${u?.email}" required autocomplete="off">
                     </div>
 
-
-
+                </div>
+                <div id="users_password">
                     <div class="input-group">
                         <div class="input-group-text"><i class="fas fa-key"></i></i>Mot de passe</div>
                         <input type="password" class="form-control" name="password" id="password_input"
@@ -39,11 +44,7 @@
                                 class="fas fa-dice"></i></button>
                     </div>
                     <P class="fw-light mb-3">(Doit contenir au moins une lettre majuscule et un chiffre.)</P>
-                    <div class="input-group mb-3">
-                        <div class="input-group-text"><i class="fas fa-portrait"></i></i>Photo</div>
-                        <input type="text" class="form-control" name="photouser" id="photouser_input"
-                            th:value="${u?.photouser}" autocomplete="off">
-                    </div>
+
                 </div>
 
                 <div id="users_role">
