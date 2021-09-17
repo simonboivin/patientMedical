@@ -13,26 +13,36 @@
                 <div id="users_input">
                     <div class="input-group mb-3">
                         <div class="input-group-text"><i class="fas fa-user-edit"></i>Nom</div>
-                        <input type="text" class="form-control" name="nom" id="nom" placeholder="Nom"
+                        <input type="text" class="form-control" name="nom" id="nom_input" placeholder="Nom"
                             th:value="${u?.name}" required>
+                    </div>
+                    <div class="input-group mb-3" th:if="${!is_edit}">
+                        <div class="input-group-text">
+                            <i class="fas fa-user-edit"></i>Username</i>
+                        </div>
+                        <input type="text" class="form-control" name="username" id="username_input"
+                            placeholder="Username">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-text"><i class="fas fa-at"></i>Email</div>
+                        <input type="email" class="form-control" name="email" id="email_input" placeholder="Email"
+                            th:value="${u?.email}" required autocomplete="off">
+                    </div>
+
+
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-text"><i class="fas fa-key"></i></i>Mot de passe</div>
+                        <input type="password" class="form-control" name="password" id="password_input"
+                            th:required="${!is_edit}" placeholder="***" autocomplete="new-password">
+                        <button type="button" class="btn btn-secondary" onclick="generatePassword()"><i
+                                class="fas fa-dice"></i></button>
                     </div>
                     <div class="input-group mb-3">
                         <div class="input-group-text"><i class="fas fa-portrait"></i></i>Photo</div>
-                        <input type="text" class="form-control" name="photouser" id="photouser"
+                        <input type="text" class="form-control" name="photouser" id="photouser_input"
                             th:value="${u?.photouser}" autocomplete="off">
                     </div>
-
-                    <div class="input-group mb-3">
-                        <div class="input-group-text"><i class="fas fa-at"></i>Email</div>
-                        <input type="email" class="form-control" name="email" id="email" placeholder="Email"
-                            th:value="${u?.email}" required autocomplete="off">
-                    </div>
-                    <div class="input-group mb-3">
-                        <div class="input-group-text"><i class="fas fa-key"></i></i>Mot de passe</div>
-                        <input type="password" class="form-control" name="password" id="password"
-                            th:required="${!is_edit}" placeholder="***" autocomplete="new-password">
-                    </div>
-
                 </div>
 
                 <div id="users_role">
@@ -58,7 +68,9 @@
             </form>
         </div>
     </main>
+
     <footer th:include="~{ footer :: #footer }"></footer>
+    <script src="/js/users.js"></script>
 </body>
 
 </html>

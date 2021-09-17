@@ -58,7 +58,7 @@ public class ApplicationConfig extends WebSecurityConfigurerAdapter {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http.formLogin().loginPage("/login").defaultSuccessUrl("/");
-            http.authorizeRequests().antMatchers("/login", "/css/**", "/img/**").permitAll();
+            http.authorizeRequests().antMatchers("/login", "/css/**", "/img/**", "/js/**").permitAll();
             http.authorizeRequests().antMatchers("/", "/**/list", "/profils/**").access("hasRole('ADMIN') or hasRole('USER')");
             http.authorizeRequests().anyRequest().hasRole("ADMIN");
             http.csrf().disable();
