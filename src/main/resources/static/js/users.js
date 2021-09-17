@@ -5,12 +5,13 @@ const passwordInput = document.getElementById("password_input");
 const photouserInput = document.getElementById("photouser_input");
 const progress = document.getElementById("progress");
 const addUserForm = document.getElementById("addUserform");
-const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
-var progressStatut = 0;
-var nomInputNotProgressed = true;
-var emailInputNotProgressed = true;
-var passwordInputNotProgressed = true;
-var photouserInputNotProgressed = true;
+const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+
+let progressStatut = 0;
+let nomInputNotProgressed = true;
+let emailInputNotProgressed = true;
+let passwordInputNotProgressed = true;
+let photouserInputNotProgressed = true;
 
 function generatePassword() {
     passwordInput.value = charAlea();

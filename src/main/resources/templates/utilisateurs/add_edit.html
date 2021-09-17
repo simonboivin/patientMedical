@@ -31,13 +31,14 @@
 
 
 
-                    <div class="input-group mb-3">
+                    <div class="input-group">
                         <div class="input-group-text"><i class="fas fa-key"></i></i>Mot de passe</div>
                         <input type="password" class="form-control" name="password" id="password_input"
                             th:required="${!is_edit}" placeholder="***" autocomplete="new-password">
                         <button type="button" class="btn btn-secondary" onclick="generatePassword()"><i
                                 class="fas fa-dice"></i></button>
                     </div>
+                    <P class="fw-light mb-3">(Doit contenir au moins une lettre majuscule et un chiffre.)</P>
                     <div class="input-group mb-3">
                         <div class="input-group-text"><i class="fas fa-portrait"></i></i>Photo</div>
                         <input type="text" class="form-control" name="photouser" id="photouser_input"

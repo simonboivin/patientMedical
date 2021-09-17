@@ -1,22 +1,23 @@
 <header id="header">
     <H1 class="header_logo"><i class="fas fa-shield-virus"></i> Arkham Santé</H1>
     <div class="bulle_utilisateur">
-        <div th:text="${bonjour}"></div>
-        <img class="image_profils" th:src="${avatar}" alt="photo_profil">
-        <div class="float-end">
-            <div class="dropdown dropstart">
-                <button class="border-0 dropdown-toggle" type="button" id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#profileModal"
-                            th:href="@{'/user/profile/edit/' + ${#authentication.getPrincipal().getUser().getId()}}">Gérer
-                            mon profil</a></li>
-                    <li><a class="dropdown-item" href="/logout">Logout</a></li>
-                </ul>
-            </div>
 
+        <div th:text="${bonjour}"></div>
+
+
+        <div class="dropdown">
+            <a class="btn btn-outline-light bg-transparent dropdown-toggle ms-3 border-0" href="#" role="button"
+                id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> <img class="image_profils"
+                    th:src="${avatar}" alt="photo_profil"></a>
+
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#profileModal"
+                        th:href="@{'/user/profile/edit/' + ${#authentication.getPrincipal().getUser().getId()}}">Gérer
+                        mon profil</a></li>
+                <li><a class="dropdown-item" href="/logout">Logout</a></li>
+            </ul>
         </div>
+
+
     </div>
 </header>
