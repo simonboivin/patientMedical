@@ -5,80 +5,83 @@
 
 <body>
 
-    <header th:include="~{ header :: #header }"></header>
+<header th:include="~{ header :: #header }"></header>
 
-    <main>
-        <div id="liste_patients" class="container">
-            <div class="entete_fenetre"> Liste des Patients</div>
-            <div class="conteneur_fenetre">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Nom</th>
-                            <th>Prénom</th>
-                            <th>Mail</th>
-                            <th>Téléphone</th>
-                            <th>Ville</th>
-                            <th sec:authorize="hasRole('ROLE_ADMIN')"><i class="fas fa-cogs"></i></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="patient : ${liste_patient}">
-                            <td th:utext="${patient.id}"></td>
-                            <td th:utext="${patient.nom}"></td>
-                            <td th:utext="${patient.prenom}"></td>
-                            <td th:utext="${patient.email}"></td>
-                            <td th:utext="${patient.telephone}"></td>
-                            <td th:utext="${patient.ville?.nom}"></td>
-                            <td sec:authorize="hasRole('ROLE_ADMIN')">
-                                <a th:href="@{'/patients/edit/' + ${patient.id}}"><i class="fas fa-edit"></i></a>
-                                <a th:href="@{'/patients/delete/' + ${patient.id}}"><i class="fas fa-trash"></i></a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br />
-                <div sec:authorize="hasRole('ROLE_ADMIN')" class="fonctions">
-                    <button data-bs-toggle="modal" data-bs-target="#addPatientModal"
-                        class="btn btn-success float-end">Nouveau Patient</button>
+<main>
+    <div id="liste_patients" class="container">
+        <div th:if="${param.success}" class="alert alert-success" role="alert">Opération effectuée avec succès</div>
+        <div class="entete_fenetre"> Liste des Patients</div>
+        <div class="conteneur_fenetre">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Mail</th>
+                    <th>Téléphone</th>
+                    <th>Ville</th>
+                    <th sec:authorize="hasRole('ROLE_ADMIN')"><i class="fas fa-cogs"></i></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="patient : ${liste_patient}">
+                    <td th:utext="${patient.id}"></td>
+                    <td th:utext="${patient.nom}"></td>
+                    <td th:utext="${patient.prenom}"></td>
+                    <td th:utext="${patient.email}"></td>
+                    <td th:utext="${patient.telephone}"></td>
+                    <td th:utext="${patient.ville?.nom}"></td>
+                    <td sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a th:href="@{'/patients/edit/' + ${patient.id}}"><i class="fas fa-edit"></i></a>
+                        <a th:href="@{'/patients/delete/' + ${patient.id}}"><i class="fas fa-trash"></i></a>
+                        <button type="button" class="btn btn-secondary delete_patient_button" th:dataid="${patient.id}"><i
+                                class="fas fa-trash" ></i></button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <br/>
+            <div sec:authorize="hasRole('ROLE_ADMIN')" class="fonctions">
+                <button data-bs-toggle="modal" data-bs-target="#addPatientModal"
+                        class="btn btn-success float-end">Nouveau Patient
+                </button>
+            </div>
+        </div>
+
+
+    </div>
+</main>
+
+<!-- Modal -->
+<div class="modal fade" id="addPatientModal" tabindex="-1" aria-labelledby="addPatientModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <form name="patientAddForm" method="POST" action="/patients/add" id="patientAddForm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ajouter un patient</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="alert_new_patient">
+
+                    </div>
+                    <div th:include="~{ patients/add_edit :: #patients_input }"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-secondary" id="valider_button">Valider</button>
+                    <button type="reset" class="btn btn-danger float-end">Reset</button>
                 </div>
             </div>
-
-
-        </div>
-    </main>
-
-    <!-- Modal -->
-    <div class="modal fade" id="addPatientModal" tabindex="-1" aria-labelledby="addPatientModal" aria-hidden="true">
-        <div class="modal-dialog">
-            <form name="patientAddForm" method="POST" action="/patients/add" id="patientAddForm">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ajouter un patient</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div id="alert_new_patient">
-
-                        </div>
-                        <div th:include="~{ patients/add_edit :: #patients_input }"></div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-secondary" id="valider_button">Valider</button>
-                        <button type="reset" class="btn btn-danger float-end">Reset</button>
-                    </div>
-                </div>
-            </form>
-        </div>
+        </form>
     </div>
+</div>
 
-    <footer th:include="~{ footer :: #footer }"></footer>
-    <script src="/js/patients_add.js"></script>
+<footer th:include="~{ footer :: #footer }"></footer>
+<script src="/js/patients_add.js"></script>
 
 
 </body>
-
 
 
 </html>
