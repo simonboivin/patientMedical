@@ -52,7 +52,7 @@
     <!-- Modal -->
     <div class="modal fade" id="addPatientModal" tabindex="-1" aria-labelledby="addPatientModal" aria-hidden="true">
         <div class="modal-dialog">
-            <form name="patientAddForm" method="POST" action="/patients/add">
+            <form name="patientAddForm" method="POST" action="/patients/add" id="patientAddForm">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Ajouter un patient</h5>
@@ -65,7 +65,7 @@
                         <div th:include="~{ patients/add_edit :: #patients_input }"></div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-secondary">Valider</button>
+                        <button type="submit" class="btn btn-secondary" id="valider_button">Valider</button>
                         <button type="reset" class="btn btn-danger float-end">Reset</button>
                     </div>
                 </div>
@@ -74,7 +74,7 @@
     </div>
 
     <footer th:include="~{ footer :: #footer }"></footer>
-    <script src="/js/patients.js"></script>
+    <script src="/js/patients_add.js"></script>
 
 
 </body>
