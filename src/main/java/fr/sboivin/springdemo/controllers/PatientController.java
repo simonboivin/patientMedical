@@ -6,12 +6,10 @@ import fr.sboivin.springdemo.services.PatientsService;
 import fr.sboivin.springdemo.services.VillesService;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -116,4 +114,12 @@ public class PatientController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Le patient " + id + " n'est pas trouvé");
         }
     }
+
+    @GetMapping(value="/check")
+    public ResponseEntity<Boolean> checkIsEmailExist(@RequestParam("email") String email) {
+        System.out.println("Requête reçue pour l'email " + email);
+        System.out.println("resultat: "+ patientsService.existPatientByEmail(email));
+        return ResponseEntity.status(HttpStatus.OK).body(patientsService.existPatientByEmail(email)) ;
+    }
+
 }

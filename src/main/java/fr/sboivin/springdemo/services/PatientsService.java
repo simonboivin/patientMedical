@@ -40,6 +40,10 @@ public class PatientsService {
         return patientRepository.findById(id);
     }
 
+    public boolean existPatientByEmail(String email){
+        return patientRepository.existsByEmail(email);
+    }
+
     /**
      * Set les différents attributs pour un objet patient
      */
