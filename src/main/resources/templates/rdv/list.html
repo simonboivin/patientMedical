@@ -28,7 +28,7 @@
                         <tr th:each="rdv : ${listerdv}">
                             <td th:utext="${rdv.id}"></td>
                             <td th:utext="${rdv.patient?.prenom} + ' ' +  ${rdv.patient?.nom}"></td>
-                            <td th:utext="${rdv.dateheure}"></td>
+                            <td th:utext="${#temporals.format(rdv.dateheure, 'dd-MM-yyyy HH:mm')}"></td>
                             <td th:utext="${rdv.type}"></td>
                             <td th:utext="${rdv.duree}"></td>
                             <td th:utext="${rdv.note}"></td>

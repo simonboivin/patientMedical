@@ -29,8 +29,25 @@
                     <i class="fas fa-sign-out-alt"></i>Déconnexion
                 </a>
 
+
+
             </div>
 
+            <br>
+
+            <div class="m-4">
+                <H5>Nombre de rendez-vous</H5>
+                <table class="table table-striped">
+                    <thead>
+                        <th>Mois</th>
+                        <th>Nombre de rendez-vous</th>
+                    </thead>
+                    <tr th:each="compte : ${compte}">
+                        <td th:utext="${compte.key}"></td>
+                        <td th:utext="${compte.value}"></td>
+                    </tr>
+                </table>
+            </div>
 
         </div>
     </main>

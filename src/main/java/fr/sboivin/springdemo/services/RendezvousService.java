@@ -7,8 +7,10 @@ import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,7 +47,6 @@ public class RendezvousService {
 
     /**
      * Obtenir la liste des rendez-vous
-
      */
     public List<Rendezvous> getAllRendezvous() {
         return (List<Rendezvous>) rendezvousRepository.findAll();
@@ -53,6 +54,7 @@ public class RendezvousService {
 
     /**
      * Obtenir un rendez-vous
+     *
      * @param id ID du rendez-vous
      */
     public Optional<Rendezvous> getRendezvousById(Integer id) {
@@ -74,7 +76,7 @@ public class RendezvousService {
     /**
      * Supprimer un rendez-vous
      */
-    public void deleteRendezvousById(Integer rendezvousId){
+    public void deleteRendezvousById(Integer rendezvousId) {
         Optional<Rendezvous> rendezvousOptional = getRendezvousById(rendezvousId);
         if (rendezvousOptional.isPresent()) {
             rendezvousRepository.delete(rendezvousOptional.get());
@@ -95,6 +97,28 @@ public class RendezvousService {
         } else {
             throw new ObjectNotFoundException(patientId, "Patient " + patientId + " non trouvé");
         }
+    }
+
+    public HashMap<String, Integer> compteRendezVousMensuels() {
+        HashMap<String, Integer> compte = new HashMap<String, Integer>();
+
+        int premierRdvAnnee = rendezvousRepository.findFirstByOrderByDateheureAsc().getDateheure().getYear();
+        int dernierRdvAnnee = rendezvousRepository.findFirstByOrderByDateheureDesc().getDateheure().getYear();
+
+        for (int annee = premierRdvAnnee; annee <= dernierRdvAnnee; annee++) {
+            for (int i = 1; i <= 12; i++) {
+                if (compteRendezvousDansUnMois(annee, i) != 0) {
+                    compte.put(i + " / " + annee, compteRendezvousDansUnMois(annee, i));
+                }
+            }
+        }
+        return compte;
+    }
+
+
+    private int compteRendezvousDansUnMois(int annee, int mois) {
+        return rendezvousRepository.findAllByDateheureBetween(LocalDateTime.of(annee, mois, 1, 00, 1),
+                LocalDateTime.of(annee, mois, LocalDate.of(annee, mois, 1).with(TemporalAdjusters.lastDayOfMonth()).getDayOfMonth(), 23, 59)).size();
     }
 
 }
