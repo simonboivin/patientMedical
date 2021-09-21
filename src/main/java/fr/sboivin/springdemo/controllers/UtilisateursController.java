@@ -122,7 +122,6 @@ public class UtilisateursController {
         try {
             User u = ur.findById(id).orElse(null);
             ur.delete(u);
-
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erreur pendant la suppression de l'utilisateur " + id);
         }
