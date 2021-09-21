@@ -84,7 +84,7 @@ public class PatientController {
         try {
             patientsService.editPatient(id, request.getParameter("nom"), request.getParameter("prenom"), request.getParameter("email"),
                     request.getParameter("telephone"), Integer.valueOf(request.getParameter("ville")));
-            return "redirect:/patients/list";
+            return "redirect:/patients/list?success";
         } catch (ObjectNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Le patient " + id + " n'est pas trouvé");
         }
@@ -108,18 +108,19 @@ public class PatientController {
     @PostMapping(value = "/delete/{id}")
     public String deletePatientDelete(@PathVariable int id) {
         try {
-          patientsService.deletePatientById(id);
+            patientsService.deletePatientById(id);
             return "redirect:/patients/list";
         } catch (ObjectNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Le patient " + id + " n'est pas trouvé");
         }
     }
 
-    @GetMapping(value="/check")
+    @GetMapping(value = "/check")
     public ResponseEntity<Boolean> checkIsEmailExist(@RequestParam("email") String email) {
         System.out.println("Requête reçue pour l'email " + email);
-        System.out.println("resultat: "+ patientsService.existPatientByEmail(email));
-        return ResponseEntity.status(HttpStatus.OK).body(patientsService.existPatientByEmail(email)) ;
+        System.out.println("resultat: " + patientsService.existPatientByEmail(email));
+        return ResponseEntity.status(HttpStatus.OK).body(patientsService.existPatientByEmail(email));
     }
 
 }
+

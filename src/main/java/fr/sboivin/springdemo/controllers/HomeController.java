@@ -13,4 +13,10 @@ public class HomeController {
     public String homePage() {
         return "index";
     }
+
+    @GetMapping(value="/hello")
+    public String helloWord() {
+        return "hello";
+    }
 }
+
