@@ -11,7 +11,9 @@
         <div id="liste_patients" class="container">
             <div class="entete_fenetre"> Liste des Patients</div>
             <div class="conteneur_fenetre">
-                <table class="table table-striped">
+                <div th:if="${param.success}" class="alert alert-success" role="alert">Opération effectuée avec succès
+                </div>
+                <table class="table table-striped align-middle">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -32,8 +34,11 @@
                             <td th:utext="${patient.telephone}"></td>
                             <td th:utext="${patient.ville?.nom}"></td>
                             <td sec:authorize="hasRole('ROLE_ADMIN')">
-                                <a th:href="@{'/patients/edit/' + ${patient.id}}"><i class="fas fa-edit"></i></a>
-                                <a th:href="@{'/patients/delete/' + ${patient.id}}"><i class="fas fa-trash"></i></a>
+                                <button type="button" class="btn btn-warning edit_patient_button"
+                                    th:dataid="${patient.id}" data-bs-toggle="modal"
+                                    data-bs-target="#editPatientModal"><i class="fas fa-edit"></i></button>
+                                <button type="button" class="btn btn-danger delete_patient_button"
+                                    th:dataid="${patient.id}"><i class="fas fa-trash"></i></button>
                             </td>
                         </tr>
                     </tbody>
@@ -41,7 +46,8 @@
                 <br />
                 <div sec:authorize="hasRole('ROLE_ADMIN')" class="fonctions">
                     <button data-bs-toggle="modal" data-bs-target="#addPatientModal"
-                        class="btn btn-success float-end">Nouveau Patient</button>
+                        class="btn btn-success float-end">Nouveau Patient
+                    </button>
                 </div>
             </div>
 
@@ -60,7 +66,6 @@
                     </div>
                     <div class="modal-body">
                         <div id="alert_new_patient">
-
                         </div>
                         <div th:include="~{ patients/add_edit :: #patients_input }"></div>
                     </div>
@@ -73,12 +78,37 @@
         </div>
     </div>
 
+    <!-- Modal edition patient -->
+    <div class="modal fade" id="editPatientModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="" method="POST" id="editPatientModalForm">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Editer patient</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="editPatientModalBody">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-success">Sauvegarder</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
     <footer th:include="~{ footer :: #footer }"></footer>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="/js/patients_add.js"></script>
 
 
-</body>
 
+
+</body>
 
 
 </html>

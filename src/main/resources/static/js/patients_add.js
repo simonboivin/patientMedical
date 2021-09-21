@@ -2,7 +2,8 @@ const emailInput = document.getElementById("email");
 const alertNewPatient = document.getElementById("alert_new_patient");
 const validerButton = document.getElementById("valider_button");
 const form = document.getElementById('patientAddForm');
-
+const editPatientsButtons = document.getElementsByClassName("edit_patient_button");
+const deletePatientsButtons = document.getElementsByClassName("delete_patient_button");
 
 function displayAlert(couleur, message) {
     alertNewPatient.innerHTML = '<div class=\"alert alert-' + couleur + '\" role=\"alert\">' + message + '</div>';
@@ -48,11 +49,53 @@ function doAjax() {
             }
         }
     };
-
     let emailValue = document.getElementById('email').value;
     xhr.open("GET", "/patients/check?email=" + emailValue, true);
     xhr.send();
 }
+
+function deletePatient(id) {
+    if (confirm("Le patient sera supprimé, êtes-vous sur?")) {
+        let url = "/patients/delete/" + id;
+        let parametres = { method: 'POST' };
+        fetch(url, parametres).then(function (response) {
+            if (response.ok) {
+                window.location = "/patients/list?success";
+            } else {
+                alert("Problème");
+            }
+        })
+    }
+    ;
+
+}
+
+
+function editPatient(id) {
+    console.log("get" + id);
+    let editPatientModalForm = document.getElementById('editPatientModalForm');
+    let modalFormLink = '/patients/edit/' + id;
+    editPatientModalForm.setAttribute("action", modalFormLink);
+    $.get("/patients/edit/" + id)
+        .done(function (data) {
+            $("#editPatientModalBody").html(data);
+        });
+}
+
+
+for (let i = 0; i < deletePatientsButtons.length; i++) {
+    deletePatientsButtons[i].addEventListener("click", () => {
+        deletePatient(deletePatientsButtons[i].getAttribute('dataid'));
+    });
+}
+
+for (let i = 0; i < editPatientsButtons.length; i++) {
+    editPatientsButtons[i].addEventListener("click", () => {
+        editPatient(editPatientsButtons[i].getAttribute('dataid'));
+    });
+}
+
+
 
 
 emailInput.onchange = doAjax;
