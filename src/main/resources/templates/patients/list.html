@@ -9,9 +9,10 @@
 
     <main>
         <div id="liste_patients" class="container">
-            <div th:if="${param.success}" class="alert alert-success" role="alert">Opération effectuée avec succès</div>
             <div class="entete_fenetre"> Liste des Patients</div>
             <div class="conteneur_fenetre">
+                <div th:if="${param.success}" class="alert alert-success" role="alert">Opération effectuée avec succès
+                </div>
                 <table class="table table-striped align-middle">
                     <thead>
                         <tr>

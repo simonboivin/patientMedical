@@ -41,7 +41,7 @@ public class PatientController {
     public String addPatientGet(Model model) {
         model.addAttribute("entete_titre", "Ajouter patient");
         model.addAttribute("liste_villes", villesService.getVilleList());
-        Ville villeDefaut = villesService.getVillebyId(1).orElse(null);
+        Ville villeDefaut = villesService.getVilleList().get(0);
         model.addAttribute("ville_select", villeDefaut);
         model.addAttribute("button_submit_text", "Ajouter patient");
         return "patients/add_edit";

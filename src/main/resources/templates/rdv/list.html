@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:include="~{ head :: #head }"></head>
+
+<body>
+
+    <header th:include="~{ header :: #header }"></header>
+    <main>
+        <div id="liste_utilisateurs">
+            <div class="entete_fenetre"> Liste des rendez-vous</div>
+            <div class="conteneur_fenetre">
+                <div th:if="${param.success}" class="alert alert-success" role="alert">Opération effectuée avec succès
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Patient</th>
+                            <th>Date & Heure</th>
+                            <th>Type</th>
+                            <th>Durée</th>
+                            <th>Notes</th>
+                            <th><i class="fas fa-cogs"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="rdv : ${listerdv}">
+                            <td th:utext="${rdv.id}"></td>
+                            <td th:utext="${rdv.patient?.prenom} + ' ' +  ${rdv.patient?.nom}"></td>
+                            <td th:utext="${rdv.dateheure}"></td>
+                            <td th:utext="${rdv.type}"></td>
+                            <td th:utext="${rdv.duree}"></td>
+                            <td th:utext="${rdv.note}"></td>
+                            <td>
+                                <button type="button" class="btn btn-warning edit_rdv_button" th:dataid="${rdv.id}"
+                                    data-bs-toggle="modal" data-bs-target="#editRdvModal"><i
+                                        class="fas fa-edit"></i></button>
+                                <button type="button" class="btn btn-danger delete_rdv_button" th:dataid="${rdv.id}"><i
+                                        class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <br />
+                <div class="fonctions">
+
+                    <button data-bs-toggle="modal" data-bs-target="#addrdvModal"
+                        class="btn btn-success float-end">Nouveau rendez-vous</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+
+    <footer th:include="~{ footer :: #footer }"></footer>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="addrdvModal" tabindex="-1" aria-labelledby="addrdvModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <form name="rdvAddForm" method="POST" action="/rdv/add" id="rdvUserform">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ajouter un rendez-vous</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div th:include="~{ rdv/add_edit :: #rdv_input }"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">Valider</button>
+                        <button type="reset" class="btn btn-danger float-end">Reset</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal edition rdv -->
+    <div class="modal fade" id="editRdvModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="" method="POST" id="editRdvModalForm">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Editer patient</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="editRdvModalBody">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-success">Sauvegarder</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="/js/rdv.js"></script>
+
+
+</body>
+
+</html>

@@ -10,10 +10,10 @@ public class Rendezvous {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="patient", referencedColumnName = "id", foreignKey = @ForeignKey(name = "Patient_ID_FK"), nullable = false)
+    @JoinColumn(name = "patient", referencedColumnName = "id", foreignKey = @ForeignKey(name = "Patient_ID_FK"), nullable = false)
     private Patient patient;
 
     @Basic
@@ -28,12 +28,20 @@ public class Rendezvous {
     @Basic
     private String note;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 
     public LocalDateTime getDateheure() {
@@ -66,14 +74,6 @@ public class Rendezvous {
 
     public void setNote(String note) {
         this.note = note;
-    }
-
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
     }
 
     @Override

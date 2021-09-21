@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head th:include="~{ head :: #head }"></head>
+
+<body>
+    <div id="rdv_input">
+        <div class="input-group flex-nowrap mb-3">
+            <span class="input-group-text" id="addon-wrapping"><i class="fas fa-user-injured pe-2"></i>Patient</span>
+            <select class="form-select" aria-label="Default select example" name="patient" id="patient" required>
+                <option th:each="patient : ${liste_patients}" th:value="${patient?.id}"
+                    th:utext="${patient.nom + ' ' + patient.prenom}" th:selected="${patient.id==patient_select.id}">
+                </option>
+            </select>
+        </div>
+        <div class="input-group flex-nowrap mb-3">
+            <span class="input-group-text" id="addon-wrapping"><i class="fas fa-notes-medical"></i>Date & Heure</span>
+            <input type="datetime-local" class="form-control" name="dateheure" id="dateheure"
+                th:value="${dateheure_value}" required>
+        </div>
+        <div class="input-group flex-nowrap mb-3">
+            <span class="input-group-text" id="addon-wrapping"><i class="fas fa-notes-medical"></i>Type</span>
+            <input type="text" class="form-control" name="type" id="type" placeholder="Type" th:value="${type_value}">
+        </div>
+        <div class="input-group flex-nowrap mb-3">
+            <span class="input-group-text" id="addon-wrapping"><i class="fas fa-notes-medical"></i>Durée</span>
+            <input type="number" class="form-control" name="duree" id="duree" min="0" max="10" step="0.5"
+                th:value="${duree_value}" required>
+        </div>
+        <div class="input-group flex-nowrap mb-3">
+            <span class="input-group-text" id="addon-wrapping"><i class="fas fa-notes-medical"></i>Notes</span>
+            <textarea class="form-control" name="notes" id="notes" placeholder="Notes" rows="2"
+                th:text="${notes_value}"></textarea>
+
+        </div>
+    </div>
+</body>
+
+</html>
