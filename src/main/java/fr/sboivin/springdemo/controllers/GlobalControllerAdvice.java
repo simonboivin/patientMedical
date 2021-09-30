@@ -8,6 +8,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import java.util.Optional;
+
 @ControllerAdvice
 public class GlobalControllerAdvice {
 
@@ -21,8 +23,14 @@ public class GlobalControllerAdvice {
     @ModelAttribute("bonjour")
     public String returnBonjour(Authentication authentication) {
         if (authentication != null) {
-            User u = ur.findByEmail(authentication.getName());
-            return "Connecté:  " + u.getName();
+            Optional<User> u = ur.findByEmail(authentication.getName());
+            if (u.isPresent()){
+                return "Connecté:  " + u.get().getName();
+            }
+            else {
+                return "Utilsateur inconnu";
+            }
+
         } else {
             return "Non connecté";
         }
@@ -32,7 +40,7 @@ public class GlobalControllerAdvice {
     @ModelAttribute("avatar")
     public String avatarURL(Authentication authentication) {
         if (authentication != null) {
-            User u = ur.findByEmail(authentication.getName());
+            User u = ur.findByEmail(authentication.getName()).orElse(null);
             System.out.println(u.getPhotouser());
             return "/profils/"+ u.getPhotouser();
         } else {

@@ -26,11 +26,16 @@ public class VillesService {
      * @param codePostalAsString Code Postal de la ville
      */
     @Transactional
-    public void addVille(String nom, String codePostalAsString) {
+    public Ville addVille(String nom, int codePostal) {
         Ville ville = new Ville();
         ville.setNom(nom);
-        ville.setCodePostal(Integer.parseInt(codePostalAsString));
+        ville.setCodePostal(codePostal);
         villeRepository.save(ville);
+        return ville;
+    }
+
+    public Ville addVille(String nom, String codePostalAsString) {
+        return addVille(nom, Integer.parseInt(codePostalAsString));
     }
 
     /**
@@ -57,17 +62,24 @@ public class VillesService {
      * @param codePostalAsString Nouveau code postal
      */
     @Transactional
-    public void editVille(int id, String nom, String codePostalAsString) {
+    public Ville editVille(int id, String nom, int codePostal) {
         Optional<Ville> villeOptionnal = getVillebyId(id);
         if (villeOptionnal.isPresent()) {
             Ville ville = villeOptionnal.get();
             ville.setNom(nom);
-            ville.setCodePostal(Integer.parseInt(codePostalAsString));
+            ville.setCodePostal(codePostal);
             villeRepository.save(ville);
+            return ville;
         } else {
             throw new ObjectNotFoundException(id, "Ville non trouvée");
         }
     }
+
+
+    public Ville editVille(int id, String nom, String codePostalAsString) {
+    return editVille(id, nom, Integer.parseInt(codePostalAsString));
+    }
+
 
     /**
      * Supprimer une ville dans la base

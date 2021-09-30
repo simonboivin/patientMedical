@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -24,7 +23,7 @@ public class ApplicationConfig extends WebSecurityConfigurerAdapter {
 
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private UserDetailsServiceImpl userDetailsService;
 
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
@@ -43,16 +42,17 @@ public class ApplicationConfig extends WebSecurityConfigurerAdapter {
     @Order(1)
     public static class ApiWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
         protected void configure(HttpSecurity http) throws Exception {
-            http.antMatcher("/ws/**")
-                    .csrf().disable().
-                    sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            http.antMatcher("/api/**")
+                    .cors().and()
+                    .csrf().disable()
+                    .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                     .and().authorizeRequests(authorize -> authorize.anyRequest().hasRole("ADMIN"))
                     .httpBasic();
         }
     }
 
     @Configuration
-    @Order (2)
+    @Order(2)
     public static class FormLoginWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
         @Override
