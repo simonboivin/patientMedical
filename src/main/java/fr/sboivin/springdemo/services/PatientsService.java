@@ -25,6 +25,14 @@ public class PatientsService {
      * @return Liste des Patients de la base
      */
     @Transactional
+    public Iterable<Patient> getPatientsList(String search) {
+        if (search == null | search.length() == 0) {
+            return patientRepository.findAll();
+        } else {
+            return patientRepository.findByNomContainsOrPrenomContains(search, search);
+        }
+    }
+
     public List<Patient> getPatientsList() {
         return (List<Patient>) patientRepository.findAll();
     }
@@ -40,7 +48,7 @@ public class PatientsService {
         return patientRepository.findById(id);
     }
 
-    public boolean existPatientByEmail(String email){
+    public boolean existPatientByEmail(String email) {
         return patientRepository.existsByEmail(email);
     }
 
@@ -97,5 +105,6 @@ public class PatientsService {
             throw new ObjectNotFoundException(id, "Patient non trouvé");
         }
     }
+
 
 }

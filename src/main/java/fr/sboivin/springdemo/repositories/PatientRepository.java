@@ -9,4 +9,8 @@ public interface PatientRepository extends CrudRepository<Patient, Integer> {
 
     boolean existsByEmail(String email);
 
+    Iterable<Patient> findByNomOrPrenom(String nom, String prenom);
+
+    Iterable<Patient> findByNomContainsOrPrenomContains(String nom, String prenom);
+
 }
