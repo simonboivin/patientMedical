@@ -1,5 +1,7 @@
 package fr.sboivin.springdemo.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -17,6 +19,7 @@ public class Rendezvous {
     private Patient patient;
 
     @Basic
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime dateheure;
 
     @Basic
