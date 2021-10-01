@@ -19,7 +19,6 @@ public class Rendezvous {
     private Patient patient;
 
     @Basic
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime dateheure;
 
     @Basic
