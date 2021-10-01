@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 @RestController
@@ -23,14 +23,18 @@ public class PatientsApiController {
 
 
     @GetMapping(path = "", produces = "application/json")
-    public List<Patient> getPatientsListAPI() {
-        return patientsService.getPatientsList();
+    public Iterable<Patient> getPatientsListAPI(HttpServletRequest request) {
+        if (request.getParameter("search") == null) {
+            return patientsService.getPatientsList();
+        } else {
+            return patientsService.getPatientsList(request.getParameter("search"));
+        }
     }
 
     @GetMapping(path = "/{id}", produces = "application/json")
-    public Patient getPatientByIdAPI(@PathVariable("id") int id){
+    public Patient getPatientByIdAPI(@PathVariable("id") int id) {
         Optional<Patient> patientOptional = patientsService.getPatientById(id);
-        if(patientOptional.isPresent()){
+        if (patientOptional.isPresent()) {
             return patientOptional.get();
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Le patient " + id + " n'est pas trouvé");
@@ -38,9 +42,9 @@ public class PatientsApiController {
     }
 
     @PutMapping(path = "/{id}", produces = "application/json")
-    public Patient editPatientByIdAPI(@PathVariable("id") int id, @RequestBody Patient patient){
+    public Patient editPatientByIdAPI(@PathVariable("id") int id, @RequestBody Patient patient) {
         Optional<Patient> patientOptional = patientsService.getPatientById(id);
-        if(patientOptional.isPresent()){
+        if (patientOptional.isPresent()) {
             return patientsService.editPatient(id, patient.getNom(), patient.getPrenom(), patient.getEmail(), patient.getTelephone(), patient.getVille().getId());
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Le patient " + id + " n'est pas trouvé");
@@ -53,7 +57,7 @@ public class PatientsApiController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public void deletePatientByIdAPI(@PathVariable("id") int id){
+    public void deletePatientByIdAPI(@PathVariable("id") int id) {
         try {
             patientsService.deletePatientById(id);
         } catch (ObjectNotFoundException e) {
